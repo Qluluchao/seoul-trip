@@ -265,6 +265,12 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .chip.sep{cursor:default;padding:3px 10px;color:var(--muted);background:transparent;border-style:dotted;font-size:.78rem}
 .cdet{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 .optb{display:inline-block;font-size:.66rem;font-weight:700;padding:0 6px;border-radius:5px;border:1px dashed var(--muted);color:var(--muted);margin-left:6px;vertical-align:2px}
+
+.wx{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px;font-size:.82rem}
+.wx svg{width:24px;height:24px;color:var(--blue);flex:none}
+.wx b{display:block;font-family:var(--font-mono);font-size:.88rem}
+.wx span{color:var(--muted);margin-right:6px}
+.wx small{font-size:.68rem;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 5px}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.bottom .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
@@ -650,11 +656,25 @@ function routeHTML(dayId,rt,ri){
  }
  return h+`${rt.extra?`<div class="extra">${esc(rt.extra)}</div>`:''}</div>`;
 }
+/* weather: live forecast once within range, else past-years average for early December */
+const CLIM={hi:6,lo:0,pop:15};
+let WX=null;try{const c=JSON.parse(localStorage.getItem('seoul-wx')||'null');if(c&&c.d)WX=c}catch(e){}
+function wxName(c){if(c<=1)return '晴';if(c<=3)return '多雲';if(c<=48)return '霧';if((c>=51&&c<=67)||(c>=80&&c<=82))return '雨';if((c>=71&&c<=77)||c===85||c===86)return '雪';return '雷雨'}
+const WXI={晴:'<circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>',多雲:'<path d="M7 18h10a4 4 0 0 0 .4-8A5.5 5.5 0 0 0 7 9.5 4.3 4.3 0 0 0 7 18z"/>',霧:'<path d="M4 9h16M3 13h18M5 17h14"/>',雨:'<path d="M7 14h10a4 4 0 0 0 .4-8A5.5 5.5 0 0 0 7 5.5 4.3 4.3 0 0 0 7 14z"/><path d="M9 17l-1 3M13 17l-1 3M17 17l-1 3"/>',雪:'<path d="M7 14h10a4 4 0 0 0 .4-8A5.5 5.5 0 0 0 7 5.5 4.3 4.3 0 0 0 7 14z"/><path d="M9 18h.01M13 20h.01M16 18h.01"/>',雷雨:'<path d="M7 14h10a4 4 0 0 0 .4-8A5.5 5.5 0 0 0 7 5.5 4.3 4.3 0 0 0 7 14z"/><path d="M12 15l-2 4h3l-2 4"/>'};
+function wxHTML(d){const iso='2026-12-0'+(d.id+1);const f=WX&&WX.d&&WX.d[iso];
+ const ic=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${WXI[n]||WXI['多雲']}</svg>`;
+ if(f){const n=wxName(f.c);return `<div class="wx">${ic(n)}<div><b>${n} ${Math.round(f.hi)}° / ${Math.round(f.lo)}°</b>${f.p!=null?`<span>降雨 ${f.p}%</span>`:''}<small>預報</small></div></div>`}
+ return `<div class="wx">${ic('多雲')}<div><b>${CLIM.hi}° / ${CLIM.lo}°</b><span>降雨 ${CLIM.pop}%</span><small>往年平均</small></div></div>`}
+(function(){const now=Date.now(),st=new Date('2026-12-02T00:00:00+09:00').getTime(),en=new Date('2026-12-08T00:00:00+09:00').getTime();
+ if(now>en||st-now>15*864e5)return;if(WX&&now-WX.t<3*3600e3)return;
+ fetch('https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.978&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FSeoul&start_date=2026-12-02&end_date=2026-12-07')
+ .then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.daily)return;const d={};j.daily.time.forEach((t,i)=>{if(j.daily.temperature_2m_max[i]!=null)d[t]={c:j.daily.weather_code[i],hi:j.daily.temperature_2m_max[i],lo:j.daily.temperature_2m_min[i],p:j.daily.precipitation_probability_max[i]}});
+  WX={t:Date.now(),d};try{localStorage.setItem('seoul-wx',JSON.stringify(WX))}catch(e){}if(curTab==='plan')keepScroll(renderPlan)}).catch(()=>{})})();
 function renderPlan(){
  renderStrip();
  const d=D.find(x=>x.id===curDay);
  let h=`<div class="dayhead"><div><div class="date">DAY ${d.id} · 2026/${d.date}（${d.wd}）</div><div class="area">${esc(d.area)}</div></div>
-</div>`;
+${wxHTML(d)}</div>`;
  h+=`<ol class="tl">`+d.tl.map(it=>{
    let x=`<li data-k="${it.k}"><div class="t">${it.t}</div><div class="c"><div class="ti">${esc(it.ti)}</div>`;
    if(it.slot){const f=F[S.picks[it.slot]];
