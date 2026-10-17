@@ -70,7 +70,10 @@ h3{font-size:1.02rem;margin:26px 0 8px;display:flex;align-items:baseline;gap:8px
 h3 .k{font-size:.7rem;letter-spacing:.14em;color:var(--muted);font-weight:500}
 .sub{color:var(--muted);font-size:.9rem;margin:0 0 6px}
 .dayhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap}
-.dayhead .area{font-family:var(--font-display);font-weight:900;font-size:1.6rem;line-height:1.2;color:var(--brown)}
+.dayhead .area{font-family:var(--font-display);font-weight:900;font-size:1.45rem;line-height:1.3;color:var(--brown);text-wrap:balance;margin-top:2px}
+.dayhead>div:first-child{min-width:0;flex:1 1 220px}
+.loc{display:inline-flex;align-items:center;gap:3px;margin-left:8px;padding:0 7px;border-radius:999px;background:var(--chip);color:var(--muted);font-family:var(--font-body);font-size:.74rem}
+.loc svg{width:11px;height:11px}
 .dayhead .date{font-family:var(--font-mono);color:var(--muted);font-size:.85rem}
 .est{font-size:.85rem;color:var(--muted)}
 .est b{color:var(--ink);font-family:var(--font-mono)}
@@ -522,7 +525,7 @@ const HYUNDAI=[
 ];
 
 const D=[
-{id:1,date:'12/2',wd:'三',area:'弘大',living:900,route:'d1',
+{id:1,title:'落地就開吃！弘大夜行軍 🛬🍲',date:'12/2',wd:'三',area:'弘大',living:900,route:'d1',
  slots:[{k:'d1din',l:'晚餐'},{k:'d1late',l:'宵夜'}],
  food:[['晚餐',['f1','g1','f3','f2']],['宵夜',['f4','f5','f6','g2']]],
  tl:[
@@ -534,7 +537,7 @@ const D=[
   {t:'19:00',k:'shop',ti:'弘大夜逛',d:'',jump:'route'},
   {t:'21:30',k:'food',ti:'宵夜',slot:'d1late',d:''}
  ]},
-{id:2,date:'12/3',wd:'四',area:'聖水',living:1450,route:'d2',
+{id:2,title:'聖水掃貨日，錢包請保重 🛍️💸',date:'12/3',wd:'四',area:'聖水',living:1450,route:'d2',
  slots:[{k:'d2br',l:'早午餐'},{k:'d2cafe',l:'咖啡廳'},{k:'d2din',l:'晚餐'},{k:'d2late',l:'宵夜外送'}],
  food:[['早午餐',['g7','f8','g8','f9','g12','f10']],['咖啡廳・甜點',['g10','f11','g11','f12']],['晚餐',['f13','f14','g9']],['宵夜外送（送到飯店）',['h1','h2','h3']]],
  tl:[
@@ -548,7 +551,7 @@ const D=[
   {t:'20:30',k:'move',ti:'回弘大',d:'2 號線 · 約 40 分',p:'hongik'},
   {t:'21:15',k:'food',ti:'宵夜叫外送',slot:'d2late',d:''}
  ]},
-{id:3,date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',
+{id:3,title:'韓屋拍拍＋汗蒸幕，吃到半夜不收工 🏯♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',
  slots:[{k:'d3lun',l:'午餐'},{k:'d3cafe',l:'咖啡廳'},{k:'d3din',l:'晚餐'},{k:'d3late',l:'宵夜'}],
  food:[['西村・益善洞午餐',['f15','f16','f17','f18','g13','f20','f19']],['安國・益善洞咖啡廳',['f22','g14','g15','g16','g17','f24','f21','f23','f25','f26']],['新堂晚餐',['f27','g18','f29','f30','f31']],['新堂宵夜',['g19','f28']]],
  tl:[
@@ -566,7 +569,7 @@ const D=[
   {t:'23:00',k:'food',ti:'宵夜',slot:'d3late',d:''},
   {t:'23:30',k:'move',ti:'計程車回弘大',d:'約 25 分 · 約 ₩20,000',p:'anook'}
  ]},
-{id:4,date:'12/5',wd:'六',area:'延南・漢江・汝矣島',living:1800,route:'d4',
+{id:4,title:'延南尋寶、漢江泡麵、百貨掃街 🍜🛒',date:'12/5',wd:'六',area:'延南・漢江・汝矣島',living:1800,route:'d4',
  slots:[{k:'d4br',l:'早午餐'},{k:'d4cafe',l:'咖啡廳'},{k:'d4din',l:'晚餐'},{k:'d4late',l:'宵夜'}],
  food:[['早午餐',['f39','g6','f32']],['延南咖啡廳',['g4','g5','f33','f34']],['The Hyundai 晚餐・咖啡',['g23','g20','g21','g22']],['回飯店的宵夜（弘大・延南）',['f5','f6','g2','f35','f36']],['其他',['f37']]],
  tl:[
@@ -582,7 +585,7 @@ const D=[
   {t:'20:30',k:'move',ti:'計程車回飯店',d:'約 20–25 分 · 約 ₩15,000',p:'anook'},
   {t:'21:15',k:'food',ti:'宵夜',slot:'d4late',d:''}
  ]},
-{id:5,date:'12/6',wd:'日',area:'醫美・明洞 → 仁川',living:2100,route:'d5',
+{id:5,title:'變美再血拼！明洞最後衝刺 ✨💄',date:'12/6',wd:'日',area:'醫美・明洞 → 仁川',living:2100,route:'d5',
  slots:[{k:'d5bf',l:'早餐'},{k:'d5lun',l:'午餐'},{k:'d5cafe',l:'咖啡廳'},{k:'d5din',l:'晚餐'}],
  food:[['合井・弘大早餐',['f39','f7']],['明洞午餐（醫美後清淡）',['g24','g25']],['明洞咖啡廳',['g27']],['明洞・乙支路晚餐',['f40','g26','f41','f42','f43']]],
  tl:[
@@ -598,7 +601,7 @@ const D=[
   {t:'19:30',k:'move',ti:'弘大入口 → 雲西站',d:'機場快線普通列車 · 約 55 分 · 約 ₩4,500',p:'unseo'},
   {t:'20:40',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'}
  ]},
-{id:6,date:'12/7',wd:'一',area:'回家',living:500,slots:[],food:[],
+{id:6,title:'帶著戰利品凱旋回家 ✈️🧳',date:'12/7',wd:'一',area:'回家',living:500,slots:[],food:[],
  tl:[
   {t:'04:50',k:'stay',ti:'起床',d:''},
   {t:'05:30',k:'move',ti:'計程車 → 仁川機場 T1',d:'約 10–15 分 · 約 ₩15,000',p:'icn'},
@@ -673,7 +676,7 @@ function wxHTML(d){const iso='2026-12-0'+(d.id+1);const f=WX&&WX.d&&WX.d[iso];
 function renderPlan(){
  renderStrip();
  const d=D.find(x=>x.id===curDay);
- let h=`<div class="dayhead"><div><div class="date">DAY ${d.id} · 2026/${d.date}（${d.wd}）</div><div class="area">${esc(d.area)}</div></div>
+ let h=`<div class="dayhead"><div><div class="date">DAY ${d.id} · ${d.date}（${d.wd}）<span class="loc">${pin}${esc(d.area)}</span></div><div class="area">${esc(d.title)}</div></div>
 ${wxHTML(d)}</div>`;
  h+=`<ol class="tl">`+d.tl.map(it=>{
    let x=`<li data-k="${it.k}"><div class="t">${it.t}</div><div class="c"><div class="ti">${esc(it.ti)}</div>`;
