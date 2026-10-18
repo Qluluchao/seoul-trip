@@ -268,7 +268,7 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .cdet{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
 .optb{display:inline-block;font-size:.66rem;font-weight:700;padding:0 6px;border-radius:5px;border:1px dashed var(--muted);color:var(--muted);margin-left:6px;vertical-align:2px}
 
-.wx{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 10px;font-size:.82rem}
+.wx{display:flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--latte);border-radius:12px;padding:6px 10px;font-size:.82rem}
 .wx svg{width:24px;height:24px;color:var(--blue);flex:none}
 .wx b{display:block;font-family:var(--font-mono);font-size:.88rem}
 .wx span{color:var(--muted);margin-right:6px}
@@ -296,6 +296,9 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .rvt button{padding:2px 9px;font-size:.74rem}
 .floorcard{margin:8px 0 2px}
 .leg .mapi{align-self:center}
+
+.tin{font-family:var(--font-mono);font-size:.78rem;font-weight:700;color:var(--muted);background:transparent;border:0;border-bottom:1px dashed var(--latte);padding:0;width:44px;text-align:right;-webkit-appearance:none;appearance:none;min-height:0}
+.tin:focus{outline:2px solid var(--sky);color:var(--ink)}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.bottom .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
@@ -368,6 +371,7 @@ const P={
  gbgst:{g:'Gyeongbokgung Station',nv:'경복궁역'},
  gbg:{g:'Gyeongbokgung Palace',nv:'경복궁'},
  ikseon:{g:'Ikseon-dong Hanok Street',nv:'익선동 한옥거리'},
+ anguk:{g:'Anguk Station',nv:'안국역'},
  jongno3:{g:'Jongno 3-ga Station',nv:'종로3가역'},
  sindang:{g:'Sindang Station',nv:'신당역'},
  sparex:{g:'SPAREX Good Morning City Dongdaemun',nv:'스파렉스 굿모닝시티'},
@@ -425,6 +429,10 @@ const F={
  f41:{n:'Rijeongwon 明洞店',c:'烤肉',g:'리정원 명동',a:'明洞',m:1},
  f42:{n:'乙支精肉',c:'烤豬肉',g:'을지정육',b:1,a:'乙支路',m:1},
  f43:{n:'Sukseongdo 乙支路店',c:'熟成豬肉',g:'숙성도 을지로',b:1,a:'乙支路',m:1},
+ n1:{n:'BHC 炸雞 雲西站店',c:'炸雞',g:'bhc치킨 운서역점',w:'雲西站商圈，營業到深夜',a:'雲西',ig:1},
+ n2:{n:'OvenMaru 烤頂雞 雲西店',c:'烤箱炸雞',g:'오븐마루치킨 운서',w:'雲西站商圈，營業到深夜',a:'雲西',ig:1},
+ n3:{n:'雲西站馬鈴薯排骨湯',c:'馬鈴薯排骨湯',g:'운서역 감자탕',w:'雲西站一帶有營業到很晚的湯飯店',a:'雲西',ig:1},
+ n4:{n:'樂天超市 熟食',c:'便當、炸物帶回飯店',g:'롯데마트 운서점',w:'雲西站商圈，跟 Days Hotel 同一棟',a:'雲西',ig:1},
  k1:{n:'60 雞炸雞 汝矣島店',c:'炸雞、辣炸雞丁',g:'60계치킨 여의도점',a:'汝矣島',m:1},
  k2:{n:'60 雞炸雞 首爾新堂店',c:'炸雞、辣炸雞丁',g:'60계치킨 신당점',a:'新堂',m:1},
  k3:{n:'BHC 炸雞 新村店',c:'炸雞、辣炸雞丁',g:'bhc치킨 신촌점',a:'新村',m:1},
@@ -463,7 +471,7 @@ const F={
 
 /* shopping routes, ordered so you never double back */
 const R={
- d1:[{t:'弘大夜逛',w:'19:00–21:15 · 從飯店往南走到弘大入口站',stops:[
+ d1:[{t:'弘大夜逛',w:'從飯店往南走到弘大入口站',stops:[
    {n:'製造 By 弘大',q:'메이드바이 홍대',tip:'雜貨小物'},
    {n:'小 Rideul',q:'동교동 177-21',tip:'服飾· 東橋洞 177-21',walk:'3 分'},
    {n:'AK PLAZA 弘大',q:'AK플라자 홍대점',hot:1,tip:'K-pop 周邊、生活雜貨',warn:'營業到 22:00',walk:'3 分'},
@@ -476,7 +484,7 @@ const R={
    {n:'Daiso 弘大 2 號店',q:'다이소 홍대2호점',hot:1,opt:1,tip:'7 層樓大創，美妝和生活小物便宜',walk:'約 3 分'},
    {n:'KAKAO FRIENDS 弘大旗艦',q:'카카오프렌즈 홍대플래그십스토어',hot:1,opt:1,tip:'Ryan、春植周邊，頂樓有主題咖啡',walk:'約 3 分'}
   ],extra:''}],
- d2:[{t:'聖水上半場（站東側）',w:'12:30–15:00 · 聖水站 3、4 號出口出發',stops:[
+ d2:[{t:'聖水上半場（站東側）',w:'聖水站 3、4 號出口出發',stops:[
    {n:'聖水站 Pure 藥局',q:'성수역 퓨어약국',tip:'保養品、保健品',warn:'10:00–23:00'},
    {n:'Stand Oil 聖水旗艦（台燈油）',q:'스탠드오일 성수',hot:1,tip:'2 樓有包包旋轉台，Chubby 包是人氣款',walk:'1 分'},
    {n:'Hetras（Heteuraseu）',q:'헤트라스 성수',hot:1,tip:'護手霜、香氛，滿額送香膏',warn:'結帳常排 20 分',walk:'4 分'},
@@ -486,7 +494,7 @@ const R={
    {n:'Musinsa Megastore 聖水',q:'무신사 메가스토어 성수',hot:1,tip:'11:00–22:00',walk:'3 分'},
    {n:'Chaakan 皮鞋',q:'착한 성수',tip:'就在 Musinsa 旁邊',walk:'1 分'}
   ],extra:''},
-  {t:'聖水下半場（延武場街往西）',w:'16:00–18:00 · 沿著延武場街一路往西',stops:[
+  {t:'聖水下半場（延武場街往西）',w:'沿著延武場街一路往西',stops:[
    {n:'Tamburins 聖水旗艦',q:'탬버린즈 성수',hot:1,tip:'巨型香氛蘑菇，護手霜必買',warn:'可能要排隊入場'},
    {n:'emis 聖水（Imiseu）',q:'이미스 성수',hot:1,tip:'人氣棒球帽，常缺貨',walk:'1 分'},
    {n:'DIOR 聖水',q:'디올 성수',hot:1,tip:'建築拍照打卡就好',walk:'1 分'},
@@ -506,12 +514,12 @@ const R={
    {n:'益善洞韓屋街',q:'익선동 한옥거리',hot:1,tip:'鹽可頌、韓屋咖啡、小店',walk:'8 分'},
    {n:'西巡邏路',q:'서순라길',tip:'沿宗廟石牆的韓屋咖啡街，傍晚很好拍',walk:'8 分'}
   ],extra:''},
-  {t:'東大門夜逛',w:'22:00–23:30 · 汗蒸幕出來就近逛',stops:[
+  {t:'東大門夜逛',w:'汗蒸幕出來就近逛',stops:[
    {n:'APM Place',q:'APM PLACE 동대문',tip:'服飾批發商場，深夜才熱鬧'},
    {n:'Nyunyu 東大門',q:'뉴뉴 동대문',hot:1,tip:'飾品、包包、襪子，接近批發價',walk:'4 分'},
    {n:'Mimi Line 東大門',q:'미미라인 동대문',tip:'飾品雜貨',walk:'3 分'}
   ]}],
- d4:[{t:'合井・西橋洞（由南往東）',w:'11:15–13:00 · 吃完 O 貝果屋直接出發',stops:[
+ d4:[{t:'合井・西橋洞（由南往東）',w:'吃完 O 貝果屋直接出發',stops:[
    {n:'Coyseio 合井旗艦',q:'코이세이오 합정',hot:1,tip:'女裝· 雜貨里路 30'},
    {n:'KT&G 想像空間',q:'KT&G 상상마당 홍대',hot:1,tip:'1–2 樓可愛文具、IP 周邊',walk:'1 分'},
    {n:'西橋洞 365-26（牛仔褲）',q:'홍익로3길 15',tip:'你備註的牛仔褲',walk:'4 分'},
@@ -520,7 +528,7 @@ const R={
    {n:'Musinsa 美妝 弘大',q:'무신사 뷰티 홍대',tip:'西橋洞',walk:'約 3 分'},
    {n:'Object 西橋店',q:'오브젝트 서교',hot:1,tip:'4 層樓文創雜貨，頂樓可以 DIY',warn:'週一二休，11:00 開',walk:'7 分'}
   ],extra:''},
-  {t:'延南洞小店（由南往北）',w:'14:00–15:45 · 沿京義線林蔭道往北',stops:[
+  {t:'延南洞小店（由南往北）',w:'沿京義線林蔭道往北',stops:[
    {n:'On Your 心理',q:'On your mind 연남동',tip:'文具'},
    {n:'五月商店',q:'Yeonnam-dong May shop',tip:'雜貨',walk:'3 分'},
    {n:'Miraen Moi',q:'Miraen Moi 연남',tip:'雜貨',walk:'2 分'},
@@ -531,7 +539,7 @@ const R={
    {n:'Poset（延禧）',q:'Poset 연희동',tip:'書店',walk:'8 分'},
    {n:'Big 睡眠（延禧洞 341-1）',q:'연희동 341-1',tip:'雜貨，逛完在這裡叫計程車',walk:'3 分'}
   ]}],
- d5:[{t:'明洞（由北往南走到明洞站）',w:'14:00–16:30',stops:[
+ d5:[{t:'明洞（由北往南走到明洞站）',w:'由北往南走到明洞站',stops:[
    {n:'Olive Young 明洞 Town',q:'올리브영 명동타운',hot:1,tip:'全球旗艦，可當場退稅'},
    {n:'emis 明洞',q:'이미스 명동',hot:1,tip:'2 層樓，帽子款式最多',warn:'營業到 23:00',walk:'2 分'},
    {n:'Juuneedu 明洞',q:'쥬니쥬 명동점',hot:1,tip:'人氣睡衣',walk:'1 分'},
@@ -568,65 +576,66 @@ const D=[
  slots:[{k:'d2br',l:'早午餐'},{k:'d2cafe',l:'咖啡廳'},{k:'d2din',l:'晚餐'},{k:'d2late',l:'宵夜外送'}],
  food:[['早午餐',['g7','f8','g8','f9','g12','f10']],['咖啡廳',['g10','f11','g11','f12']],['晚餐',['f13','f14','g9']],['宵夜',['h1','h2','h3','k3','k4']]],
  tl:[
-  {t:'10:15',k:'move',ti:'弘大入口 → 聖水站',d:'2 號線 · 約 40 分',p:'seongsu'},
-  {t:'11:00',k:'food',ti:'早午餐',slot:'d2br',d:''},
-  {t:'12:30',k:'shop',ti:'聖水上半場（站東側）',d:'',jump:'route',r:0},
-  {t:'15:00',k:'cafe',ti:'咖啡廳',slot:'d2cafe',d:''},
-  {t:'16:00',k:'shop',ti:'聖水下半場（往西）',d:'',jump:'route',r:1},
-  {t:'18:15',k:'food',ti:'晚餐',slot:'d2din',d:''},
-  {t:'19:30',k:'sight',ti:'首爾林散步（可跳過）',d:'',p:'forest'},
-  {t:'20:30',k:'move',ti:'回弘大',d:'2 號線 · 約 40 分',p:'hongik'},
-  {t:'21:15',k:'food',ti:'宵夜叫外送',slot:'d2late',d:''}
+  {t:'09:30',k:'move',ti:'弘大入口 → 聖水站',d:'2 號線 · 約 40 分',p:'seongsu'},
+  {t:'10:15',k:'food',ti:'早午餐',slot:'d2br',d:''},
+  {t:'11:15',k:'shop',ti:'聖水上半場（站東側）',d:'',jump:'route',r:0},
+  {t:'14:00',k:'cafe',ti:'咖啡廳',slot:'d2cafe',d:''},
+  {t:'15:00',k:'shop',ti:'聖水下半場（往西）',d:'',jump:'route',r:1},
+  {t:'17:30',k:'food',ti:'晚餐',slot:'d2din',d:''},
+  {t:'18:45',k:'sight',ti:'首爾林散步（可跳過）',d:'',p:'forest'},
+  {t:'19:45',k:'move',ti:'回弘大',d:'2 號線 · 約 40 分',p:'hongik'},
+  {t:'20:45',k:'food',ti:'宵夜叫外送',slot:'d2late',d:''}
  ]},
 {id:3,title:'韓屋與蒸氣浴 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',
- slots:[{k:'d3lun',l:'午餐'},{k:'d3cafe',l:'咖啡廳'},{k:'d3din',l:'晚餐'},{k:'d3late',l:'宵夜'}],
- food:[['午餐',['f15','f16','f17','f18','g13','f20','f19']],['咖啡廳',['f26','f22','g14','g15','g16','g17','f24','f21','f23','f25']],['晚餐',['f27','g18','k2','f29','f30','f31']],['宵夜',['g19','f28','k2']]],
+ slots:[{k:'d3bf',l:'早餐'},{k:'d3lun',l:'午餐'},{k:'d3cafe',l:'咖啡廳'},{k:'d3din',l:'晚餐'},{k:'d3late',l:'宵夜'}],
+ food:[['早餐',['f22','f24','f21']],['午餐',['f15','f16','f17','f18','g13','f20','f19']],['咖啡廳',['f26','f22','g14','g15','g16','g17','f24','f21','f23','f25']],['晚餐',['f27','g18','k2','f29','f30','f31']],['宵夜',['g19','f28','k2']]],
  tl:[
-  {t:'10:00',k:'move',ti:'弘大入口 → 景福宮站',d:'2→3 號線 · 約 35 分',p:'gbgst'},
-  {t:'10:40',k:'shop',ti:'西村小店',d:'',jump:'route',r:0},
-  {t:'11:15',k:'food',ti:'午餐',slot:'d3lun',d:''},
-  {t:'12:30',k:'sight',ti:'景福宮',d:'₩3,000 · 14:00 守門將交接',p:'gbg'},
-  {t:'14:15',k:'shop',ti:'三清洞・北村・安國',d:'',jump:'route',r:-1},
-  {t:'15:30',k:'sight',ti:'益善洞 → 西巡邏路',d:'',p:'ikseon'},
-  {t:'16:30',k:'cafe',ti:'西巡邏路咖啡廳',slot:'d3cafe',d:''},
+  {t:'08:45',k:'move',ti:'弘大入口 → 安國站',d:'2→3 號線 · 約 35 分',p:'anguk'},
+  {t:'09:30',k:'food',ti:'安國早餐',slot:'d3bf',d:''},
+  {t:'10:30',k:'move',ti:'安國 → 景福宮站',d:'3 號線 · 1 站',p:'gbgst'},
+  {t:'10:45',k:'shop',ti:'西村小店',d:'',jump:'route',r:0},
+  {t:'12:00',k:'food',ti:'午餐',slot:'d3lun',d:''},
+  {t:'13:00',k:'sight',ti:'景福宮',d:'₩3,000 · 14:00 守門將交接',p:'gbg'},
+  {t:'14:30',k:'shop',ti:'三清洞・北村・安國',d:'',jump:'route',r:-1},
+  {t:'15:45',k:'sight',ti:'益善洞 → 西巡邏路',d:'',p:'ikseon'},
+  {t:'16:45',k:'cafe',ti:'西巡邏路咖啡廳',slot:'d3cafe',d:''},
   {t:'17:45',k:'move',ti:'鍾路 3 街 → 新堂站',d:'5→2 號線 · 約 15 分',p:'sindang'},
   {t:'18:15',k:'food',ti:'晚餐',slot:'d3din',d:''},
-  {t:'19:45',k:'sight',ti:'Spa Rex 東大門汗蒸幕',d:'東大門歷史文化公園站 14 號出口 · ₩14,000（20:00 後 ₩16,000）',p:'sparex'},
-  {t:'22:00',k:'shop',ti:'東大門夜逛',d:'',jump:'route',r:1},
+  {t:'19:30',k:'sight',ti:'Spa Rex 東大門汗蒸幕',d:'東大門歷史文化公園站 14 號出口 · ₩14,000（20:00 後 ₩16,000）',p:'sparex'},
+  {t:'21:30',k:'shop',ti:'東大門夜逛',d:'',jump:'route',r:1},
   {t:'23:00',k:'food',ti:'宵夜',slot:'d3late',d:''},
-  {t:'23:30',k:'move',ti:'計程車回弘大',d:'約 25 分 · 約 ₩20,000',p:'anook'}
+  {t:'00:00',k:'move',ti:'計程車回弘大',d:'約 25 分 · 約 ₩20,000',p:'anook'}
  ]},
 {id:4,title:'巷弄與漢江風 🍜',date:'12/5',wd:'六',area:'延南・漢江・汝矣島',living:1800,route:'d4',
- slots:[{k:'d4br',l:'早午餐'},{k:'d4cafe',l:'咖啡廳'},{k:'d4din',l:'晚餐'},{k:'d4late',l:'宵夜'}],
- food:[['早午餐',['f39','g6','f32','f37']],['咖啡廳',['g4','g5','f33','f34','g20','g21','g22']],['晚餐',['g23','k1','g20']],['宵夜',['f5','f6','g2','f35','f36','k3','k4']]],
+ slots:[{k:'d4br',l:'早午餐'},{k:'d4din',l:'晚餐'},{k:'d4late',l:'宵夜'}],
+ food:[['早午餐',['f39','g6','f32','f37']],['晚餐',['g23','k1','g20']],['宵夜',['f5','f6','g2','f35','f36','k3','k4']]],
  tl:[
-  {t:'10:30',k:'food',ti:'早午餐',slot:'d4br',d:''},
-  {t:'11:15',k:'shop',ti:'合井・西橋洞',d:'',jump:'route',r:0},
-  {t:'13:00',k:'move',ti:'走到延南洞',d:'約 15 分',p:'yeonnam'},
-  {t:'13:15',k:'cafe',ti:'咖啡廳',slot:'d4cafe',d:''},
-  {t:'14:00',k:'shop',ti:'延南洞小店（由南往北）',d:'',jump:'route',r:1},
-  {t:'15:45',k:'move',ti:'計程車 → 汝矣島',d:'約 20 分 · 約 ₩12,000',p:'hangang'},
-  {t:'16:15',k:'sight',ti:'漢江公園煮泡麵',d:'',p:'hangang'},
-  {t:'17:15',k:'shop',ti:'The Hyundai 首爾',d:'營業到 20:30',p:'hyundai',jump:'floor'},
-  {t:'18:30',k:'food',ti:'晚餐',slot:'d4din',d:''},
+  {t:'09:30',k:'food',ti:'早午餐',slot:'d4br',d:''},
+  {t:'10:45',k:'shop',ti:'合井・西橋洞',d:'',jump:'route',r:0},
+  {t:'12:30',k:'move',ti:'走到延南洞',d:'約 15 分',p:'yeonnam'},
+  {t:'12:45',k:'shop',ti:'延南洞小店（由南往北）',d:'',jump:'route',r:1},
+  {t:'14:30',k:'move',ti:'計程車 → 汝矣島',d:'約 20 分 · 約 ₩12,000',p:'hangang'},
+  {t:'15:00',k:'sight',ti:'漢江公園煮泡麵',d:'',p:'hangang'},
+  {t:'16:00',k:'shop',ti:'The Hyundai 首爾',d:'營業到 20:30',p:'hyundai',jump:'floor'},
+  {t:'18:00',k:'food',ti:'晚餐',slot:'d4din',d:''},
   {t:'20:30',k:'move',ti:'計程車回飯店',d:'約 20–25 分 · 約 ₩15,000',p:'anook'},
   {t:'21:15',k:'food',ti:'宵夜',slot:'d4late',d:''}
  ]},
 {id:5,title:'變美後的道別 ✨',date:'12/6',wd:'日',area:'醫美・明洞 → 仁川',living:2100,route:'d5',
- slots:[{k:'d5bf',l:'早餐'},{k:'d5lun',l:'午餐'},{k:'d5cafe',l:'咖啡廳'},{k:'d5din',l:'晚餐'}],
- food:[['早餐',['f39','f7']],['午餐',['g24','g25']],['咖啡廳',['g27']],['晚餐',['f40','g26','f41','f42','f43']]],
+ slots:[{k:'d5bf',l:'早餐'},{k:'d5lun',l:'午餐'},{k:'d5din',l:'晚餐'},{k:'d5late',l:'宵夜'}],
+ food:[['早餐',['f39','f7']],['午餐',['g24','g25']],['晚餐',['f40','g26','f41','f42','f43']],['宵夜',['n1','n2','n3','n4']]],
  tl:[
   {t:'08:30',k:'stay',ti:'收行李、Check-out',d:'行李寄放櫃台',p:'anook'},
   {t:'09:00',k:'food',ti:'早餐',slot:'d5bf',d:''},
   {t:'10:00',k:'sight',ti:'醫美',d:''},
   {t:'13:00',k:'food',ti:'午餐',slot:'d5lun',d:''},
-  {t:'14:00',k:'shop',ti:'明洞逛街＋換錢',d:'',jump:'route',r:0},
-  {t:'15:30',k:'cafe',ti:'咖啡廳',slot:'d5cafe',d:''},
-  {t:'16:30',k:'food',ti:'晚餐',slot:'d5din',d:''},
-  {t:'18:00',k:'shop',ti:'樂天超市買零食伴手禮',d:'4 號線 · 2 站',p:'lotte'},
-  {t:'19:00',k:'move',ti:'首爾站 → 弘大入口，拿行李',d:'機場快線 · 約 15 分',p:'anook'},
-  {t:'19:30',k:'move',ti:'弘大入口 → 雲西站',d:'機場快線普通列車 · 約 55 分 · 約 ₩4,500',p:'unseo'},
-  {t:'20:40',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'}
+  {t:'14:00',k:'shop',ti:'明洞逛街',d:'',jump:'route',r:0},
+  {t:'17:00',k:'food',ti:'晚餐',slot:'d5din',d:''},
+  {t:'18:30',k:'shop',ti:'樂天超市買零食伴手禮',d:'4 號線 · 2 站',p:'lotte'},
+  {t:'19:30',k:'move',ti:'首爾站 → 弘大入口，拿行李',d:'機場快線 · 約 15 分',p:'anook'},
+  {t:'20:00',k:'move',ti:'弘大入口 → 雲西站',d:'機場快線普通列車 · 約 55 分 · 約 ₩4,500',p:'unseo'},
+  {t:'21:00',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'},
+  {t:'21:30',k:'food',ti:'宵夜',slot:'d5late',d:''}
  ]},
 {id:6,title:'滿載而歸之日 ✈️',date:'12/7',wd:'一',area:'回家',living:500,slots:[],food:[],
  tl:[
@@ -703,10 +712,12 @@ function wxHTML(d){const iso='2026-12-0'+(d.id+1);const f=WX&&WX.d&&WX.d[iso];
 function renderPlan(){
  renderStrip();
  const d=D.find(x=>x.id===curDay);
- let h=`<div class="dayhead">${wxHTML(d)}<div class="dt"><div class="date">DAY ${d.id} · ${d.date}（${d.wd}）</div><div class="area">${esc(d.title)}</div><span class="loc">${pin}${esc(d.area)}</span></div></div>`;
- h+=`<ol class="tl">`+d.tl.map(it=>{
+ let h=`<div class="dayhead"><div class="dt"><div class="date">DAY ${d.id} · ${d.date}（${d.wd}）</div><div class="area">${esc(d.title)}</div><span class="loc">${pin}${esc(d.area)}</span></div>${wxHTML(d)}</div>`;
+ S.times=S.times||{};const tKey=(i)=>'d'+d.id+':'+i;const tv=(it,i)=>S.times[tKey(i)]||it.t;const sortV=t=>{const[h,m]=t.split(':').map(Number);return (h<5?h+24:h)*60+m};
+ const order=d.tl.map((it,i)=>i).sort((a,b)=>sortV(tv(d.tl[a],a))-sortV(tv(d.tl[b],b))||a-b);
+ h+=`<ol class="tl">`+order.map(i=>{const it=d.tl[i];
    const mapI=it.p?navBtns(P[it.p].g,P[it.p].nv):'';
-   let x=`<li data-k="${it.k}"><div class="t">${it.t}</div><div class="c"><div class="cm"><div class="ct"><div class="ti">${esc(it.ti)}</div>${!it.slot&&it.d?`<div class="d">${esc(it.d)}</div>`:''}</div>${mapI}</div>`;
+   let x=`<li data-k="${it.k}"><div class="t"><input class="tin" type="text" inputmode="numeric" maxlength="5" value="${tv(it,i)}" data-tk="${tKey(i)}" aria-label="${esc(it.ti)} 時間"></div><div class="c"><div class="cm"><div class="ct"><div class="ti">${esc(it.ti)}</div>${!it.slot&&it.d?`<div class="d">${esc(it.d)}</div>`:''}</div>${mapI}</div>`;
    if(it.slot){const fs=pickOf(it.slot).map(id=>F[id]).filter(Boolean);
      x+=fs.length?fs.map(f=>`<div class="pickrow"><span class="picked">${esc(f.n)}</span>${navBtns(f.g,f.g)}</div>`).join('')
         :`<div class="slot"><button class="linkbtn" data-jump="food" data-meal="${esc(it.ti.replace(/叫外送|（可選）/g,''))}">挑選</button></div>`;
@@ -744,7 +755,7 @@ $('#dayBody').addEventListener('click',e=>{
  if(j&&j.dataset.meal){const d=D.find(x=>x.id===curDay);const m=j.dataset.meal.trim();const c=(d.food||[]).map(x=>x[0]).find(c=>m.includes(c)||c.includes(m));foodCat=c||'全部';renderPlan();const el=$('#foodsec');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
  if(j){const el=$('#'+({food:'foodsec',route:'routesec',floor:'floorsec'})[j.dataset.jump]);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
 });
-$('#dayBody').addEventListener('change',e=>{const c=e.target.closest('[data-shop]');if(!c)return;
+$('#dayBody').addEventListener('change',e=>{const tk=e.target.closest('[data-tk]');if(tk){S.times=S.times||{};const def=D.find(x=>x.id===curDay).tl[+tk.dataset.tk.split(':')[1]].t;const m=tk.value.trim().replace('：',':').match(/^(\d{1,2}):?(\d{2})$/);let v=null;if(m&&+m[1]<24&&+m[2]<60)v=String(+m[1]).padStart(2,'0')+':'+m[2];if(!tk.value.trim()||v===def)delete S.times[tk.dataset.tk];else if(v)S.times[tk.dataset.tk]=v;else{toast('時間格式像 09:30');}save();keepScroll(renderPlan);return}const c=e.target.closest('[data-shop]');if(!c)return;
  if(c.checked)S.shops[c.dataset.shop]=1;else delete S.shops[c.dataset.shop];save();c.closest('.stop').classList.toggle('done',c.checked)});
 
 const LEGS=[
