@@ -274,6 +274,11 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .wx b{display:block;font-family:var(--font-mono);font-size:.88rem}
 .wx span{color:var(--muted);margin-right:6px}
 .wx small{font-size:.68rem;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+
+.pickrow{display:flex;align-items:center;gap:8px;margin-top:6px}
+.pickrow .mapi{width:28px;height:28px}
+.pickrow .mapi svg{width:14px;height:14px}
+.fcat{flex-wrap:wrap;margin-bottom:10px}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.bottom .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
@@ -325,7 +330,8 @@ const KEY='seoul-trip-2026';
 let S={};
 try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){S={}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(e){return false}}
-S.picks=S.picks||{}; S.shops=S.shops||{}; S.chk=S.chk||{}; S.exp=S.exp||[]; S.ff=S.ff||'all';
+S.picks=S.picks||{};for(const k in S.picks){if(!Array.isArray(S.picks[k]))S.picks[k]=[S.picks[k]]}
+const pickOf=k=>S.picks[k]||[]; S.shops=S.shops||{}; S.chk=S.chk||{}; S.exp=S.exp||[]; S.ff=S.ff||'all';
 S.bud=S.bud||{rate:38.5,total:0};
 
 const $=s=>document.querySelector(s);
@@ -402,6 +408,10 @@ const F={
  f41:{n:'Rijeongwon 明洞店',c:'烤肉',g:'리정원 명동',a:'明洞',m:1},
  f42:{n:'乙支精肉',c:'烤豬肉',g:'을지정육',b:1,a:'乙支路',m:1},
  f43:{n:'Sukseongdo 乙支路店',c:'熟成豬肉',g:'숙성도 을지로',b:1,a:'乙支路',m:1},
+ k1:{n:'60 雞炸雞 汝矣島店',c:'炸雞、辣炸雞丁',g:'60계치킨 여의도점',a:'汝矣島',m:1},
+ k2:{n:'60 雞炸雞 首爾新堂店',c:'炸雞、辣炸雞丁',g:'60계치킨 신당점',a:'新堂',m:1},
+ k3:{n:'BHC 炸雞 新村店',c:'炸雞、辣炸雞丁',g:'bhc치킨 신촌점',a:'新村',m:1},
+ k4:{n:'Pura 雞 新村店',c:'炸雞、辣炸雞丁',g:'푸라닭 신촌점',a:'新村',m:1},
  g1:{n:'申美京辣炒雞排',c:'起司辣炒雞排，最後炒飯',g:'신미경 홍대닭갈비',w:'11:00–22:40',a:'弘大',ig:1},
  g2:{n:'小豬存錢筒',c:'石板烤五花',g:'돼지저금통 홍대',w:'開到凌晨 2 點，適合宵夜',a:'弘大',ig:1},
  g3:{n:'雪冰 Sulbing 弘大',c:'黃豆粉麻糬雪花冰',g:'설빙 홍대',w:'晚上的甜點咖啡',a:'弘大',ig:1},
@@ -525,9 +535,9 @@ const HYUNDAI=[
 ];
 
 const D=[
-{id:1,title:'落地就開吃！弘大夜行軍 🛬🍲',date:'12/2',wd:'三',area:'弘大',living:900,route:'d1',
+{id:1,title:'在弘大的燈火裡，先把胃口安頓好 🌙',date:'12/2',wd:'三',area:'弘大',living:900,route:'d1',
  slots:[{k:'d1din',l:'晚餐'},{k:'d1late',l:'宵夜'}],
- food:[['晚餐',['f1','g1','f3','f2']],['宵夜',['f4','f5','f6','g2']]],
+ food:[['晚餐',['f1','g1','k3','k4','f3','f2']],['宵夜',['f4','f5','f6','g2','k3','k4']]],
  tl:[
   {t:'14:20',k:'move',ti:'抵達仁川機場 T1',d:'',p:'icn'},
   {t:'15:30',k:'move',ti:'買 T-money＋儲值、領網卡',d:'機場便利商店'},
@@ -537,9 +547,9 @@ const D=[
   {t:'19:00',k:'shop',ti:'弘大夜逛',d:'',jump:'route'},
   {t:'21:30',k:'food',ti:'宵夜',slot:'d1late',d:''}
  ]},
-{id:2,title:'聖水掃貨日，錢包請保重 🛍️💸',date:'12/3',wd:'四',area:'聖水',living:1450,route:'d2',
+{id:2,title:'聖水的午後，讓錢包慢慢變輕 🛍️',date:'12/3',wd:'四',area:'聖水',living:1450,route:'d2',
  slots:[{k:'d2br',l:'早午餐'},{k:'d2cafe',l:'咖啡廳'},{k:'d2din',l:'晚餐'},{k:'d2late',l:'宵夜外送'}],
- food:[['早午餐',['g7','f8','g8','f9','g12','f10']],['咖啡廳・甜點',['g10','f11','g11','f12']],['晚餐',['f13','f14','g9']],['宵夜外送（送到飯店）',['h1','h2','h3']]],
+ food:[['早午餐',['g7','f8','g8','f9','g12','f10']],['咖啡廳',['g10','f11','g11','f12']],['晚餐',['f13','f14','g9']],['宵夜',['h1','h2','h3','k3','k4']]],
  tl:[
   {t:'10:15',k:'move',ti:'弘大入口 → 聖水站',d:'2 號線 · 約 40 分',p:'seongsu'},
   {t:'11:00',k:'food',ti:'早午餐',slot:'d2br',d:''},
@@ -551,9 +561,9 @@ const D=[
   {t:'20:30',k:'move',ti:'回弘大',d:'2 號線 · 約 40 分',p:'hongik'},
   {t:'21:15',k:'food',ti:'宵夜叫外送',slot:'d2late',d:''}
  ]},
-{id:3,title:'韓屋拍拍＋汗蒸幕，吃到半夜不收工 🏯♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',
+{id:3,title:'走過韓屋屋簷，在汗蒸幕裡蒸散冬天 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',
  slots:[{k:'d3lun',l:'午餐'},{k:'d3cafe',l:'咖啡廳'},{k:'d3din',l:'晚餐'},{k:'d3late',l:'宵夜'}],
- food:[['西村・益善洞午餐',['f15','f16','f17','f18','g13','f20','f19']],['安國・益善洞咖啡廳',['f22','g14','g15','g16','g17','f24','f21','f23','f25','f26']],['新堂晚餐',['f27','g18','f29','f30','f31']],['新堂宵夜',['g19','f28']]],
+ food:[['午餐',['f15','f16','f17','f18','g13','f20','f19']],['咖啡廳',['f22','g14','g15','g16','g17','f24','f21','f23','f25','f26']],['晚餐',['f27','g18','k2','f29','f30','f31']],['宵夜',['g19','f28','k2']]],
  tl:[
   {t:'10:00',k:'move',ti:'弘大入口 → 景福宮站',d:'2→3 號線 · 約 35 分',p:'gbgst'},
   {t:'10:40',k:'shop',ti:'西村小店',d:'',jump:'route'},
@@ -569,9 +579,9 @@ const D=[
   {t:'23:00',k:'food',ti:'宵夜',slot:'d3late',d:''},
   {t:'23:30',k:'move',ti:'計程車回弘大',d:'約 25 分 · 約 ₩20,000',p:'anook'}
  ]},
-{id:4,title:'延南尋寶、漢江泡麵、百貨掃街 🍜🛒',date:'12/5',wd:'六',area:'延南・漢江・汝矣島',living:1800,route:'d4',
+{id:4,title:'延南的巷弄、漢江的泡麵，和一整座百貨 🍜',date:'12/5',wd:'六',area:'延南・漢江・汝矣島',living:1800,route:'d4',
  slots:[{k:'d4br',l:'早午餐'},{k:'d4cafe',l:'咖啡廳'},{k:'d4din',l:'晚餐'},{k:'d4late',l:'宵夜'}],
- food:[['早午餐',['f39','g6','f32']],['延南咖啡廳',['g4','g5','f33','f34']],['The Hyundai 晚餐・咖啡',['g23','g20','g21','g22']],['回飯店的宵夜（弘大・延南）',['f5','f6','g2','f35','f36']],['其他',['f37']]],
+ food:[['早午餐',['f39','g6','f32','f37']],['咖啡廳',['g4','g5','f33','f34','g20','g21','g22']],['晚餐',['g23','k1','g20']],['宵夜',['f5','f6','g2','f35','f36','k3','k4']]],
  tl:[
   {t:'10:30',k:'food',ti:'早午餐',slot:'d4br',d:''},
   {t:'11:15',k:'shop',ti:'合井・西橋洞',d:'',jump:'route'},
@@ -585,9 +595,9 @@ const D=[
   {t:'20:30',k:'move',ti:'計程車回飯店',d:'約 20–25 分 · 約 ₩15,000',p:'anook'},
   {t:'21:15',k:'food',ti:'宵夜',slot:'d4late',d:''}
  ]},
-{id:5,title:'變美再血拼！明洞最後衝刺 ✨💄',date:'12/6',wd:'日',area:'醫美・明洞 → 仁川',living:2100,route:'d5',
+{id:5,title:'變得更好看一點，再去明洞道別 ✨',date:'12/6',wd:'日',area:'醫美・明洞 → 仁川',living:2100,route:'d5',
  slots:[{k:'d5bf',l:'早餐'},{k:'d5lun',l:'午餐'},{k:'d5cafe',l:'咖啡廳'},{k:'d5din',l:'晚餐'}],
- food:[['合井・弘大早餐',['f39','f7']],['明洞午餐（醫美後清淡）',['g24','g25']],['明洞咖啡廳',['g27']],['明洞・乙支路晚餐',['f40','g26','f41','f42','f43']]],
+ food:[['早餐',['f39','f7']],['午餐',['g24','g25']],['咖啡廳',['g27']],['晚餐',['f40','g26','f41','f42','f43']]],
  tl:[
   {t:'08:30',k:'stay',ti:'收行李、Check-out',d:'行李寄放櫃台',p:'anook'},
   {t:'09:00',k:'food',ti:'早餐',slot:'d5bf',d:''},
@@ -601,7 +611,7 @@ const D=[
   {t:'19:30',k:'move',ti:'弘大入口 → 雲西站',d:'機場快線普通列車 · 約 55 分 · 約 ₩4,500',p:'unseo'},
   {t:'20:40',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'}
  ]},
-{id:6,title:'帶著戰利品凱旋回家 ✈️🧳',date:'12/7',wd:'一',area:'回家',living:500,slots:[],food:[],
+{id:6,title:'帶著滿滿的行李，和一點點不捨 ✈️',date:'12/7',wd:'一',area:'回家',living:500,slots:[],food:[],
  tl:[
   {t:'04:50',k:'stay',ti:'起床',d:''},
   {t:'05:30',k:'move',ti:'計程車 → 仁川機場 T1',d:'約 10–15 分 · 約 ₩15,000',p:'icn'},
@@ -634,7 +644,7 @@ $('#tabbar').addEventListener('click',e=>{const b=e.target.closest('button[data-
 function renderStrip(){$('#dayStrip').innerHTML=D.map(d=>`<button class="dbtn" role="tab" aria-selected="${d.id===curDay}" data-day="${d.id}"><div class="dn">D${d.id} · ${d.date}（${d.wd}）</div><div class="dd">${esc(d.area.split('・')[0].split(' → ')[0])}</div></button>`).join('')}
 $('#dayStrip').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;curDay=+b.dataset.day;renderPlan();const y=$('#dayStrip').getBoundingClientRect().top+window.scrollY-8;if(window.scrollY>y)window.scrollTo({top:y})});
 
-let openChip=null;
+let openChip=null,foodCat='全部';
 function stopLI(dayId,ri,s,n){const key=`d${dayId}r${ri}:${s.n}`;const done=!!S.shops[key];
  return `<li class="stop${s.hot?' hot':''}${done?' done':''}"><div class="num">${n}</div><div class="body"><div class="sn">${esc(s.n)}${s.hot?'<span class="hotb">熱門</span>':''}${s.opt?'<span class="optb">順路可加</span>':''}</div>${s.tip?`<div class="tip">${esc(s.tip)}</div>`:''}${s.warn?`<div class="warn">${esc(s.warn)}</div>`:''}${s.walk&&S.rview!=='list'?`<div class="tip">從上一站步行${esc(s.walk)}</div>`:''}</div>
    <div class="act"><a class="mini" href="${nUrl(s.nv||s.q)}" target="_blank" rel="noopener" aria-label="導航到 ${esc(s.n)}">${pin}</a><input type="checkbox" data-shop="${esc(key)}" ${done?'checked':''} aria-label="逛過了 ${esc(s.n)}"></div></li>`}
@@ -680,9 +690,9 @@ function renderPlan(){
 ${wxHTML(d)}</div>`;
  h+=`<ol class="tl">`+d.tl.map(it=>{
    let x=`<li data-k="${it.k}"><div class="t">${it.t}</div><div class="c"><div class="ti">${esc(it.ti)}</div>`;
-   if(it.slot){const f=F[S.picks[it.slot]];
-     x+=f?`<div class="slot"><span class="picked">${esc(f.n)}</span></div><div class="btns">${navBtns(f.g,f.g)}<button class="linkbtn" data-jump="food">換一間</button></div>`
-        :`<div class="slot"><button class="linkbtn" data-jump="food">挑選</button></div>`;
+   if(it.slot){const fs=pickOf(it.slot).map(id=>F[id]).filter(Boolean);
+     x+=fs.length?fs.map(f=>`<div class="pickrow"><span class="picked">${esc(f.n)}</span>${navBtns(f.g,f.g)}</div>`).join('')+`<button class="linkbtn" data-jump="food" data-meal="${esc(it.ti.replace(/叫外送|（可選）/g,''))}">修改</button>`
+        :`<div class="slot"><button class="linkbtn" data-jump="food" data-meal="${esc(it.ti.replace(/叫外送|（可選）/g,''))}">挑選</button></div>`;
    }else{
      if(it.d)x+=`<div class="d">${esc(it.d)}</div>`;
      const b=[];if(it.p){const p=P[it.p];b.push(navBtns(p.g,p.nv))}
@@ -705,18 +715,15 @@ ${wxHTML(d)}</div>`;
    `</div></div>`;
  }
  if(d.food.length){
-  const ff=S.ff;
-  h+=`<h3 id="foodsec">美食選手</h3>
-  <div class="filter" role="group" aria-label="篩選"><button data-ff="all" aria-pressed="${ff==='all'}">全部</button><button data-ff="m" aria-pressed="${ff==='m'}">我的收藏</button><button data-ff="ig" aria-pressed="${ff==='ig'}">IG 熱門</button></div>`;
-  const seen=new Set();
-  d.food.forEach(([g,ids])=>{
-   const list=ids.filter(i=>!seen.has(i)&&(ff==='all'||F[i][ff]));list.forEach(i=>seen.add(i));
-   if(!list.length)return;
-   h+=`<div class="grp">${esc(g)}</div><div class="flist">`+list.map(id=>{const f=F[id];const on=d.slots.some(s=>S.picks[s.k]===id);
-    return `<div class="fcard${on?' on':''}"><div class="top"><div><div class="nm">${esc(f.n)}</div><div class="cat">${esc(f.c)} · ${esc(f.a)}</div></div><div class="tags">${f.m?'<span class="tag mine">我的收藏</span>':''}${f.ig?'<span class="tag ig">IG 熱門</span>':''}${f.b?'<span class="tag book">可預約</span>':''}</div></div>
+  const cats=d.food.map(x=>x[0]);if(!cats.includes(foodCat))foodCat='全部';
+  h+=`<h3 id="foodsec">美食選手</h3><div class="filter fcat" role="group" aria-label="餐別">${['全部',...cats].map(c=>`<button data-fc="${c}" aria-pressed="${c===foodCat}">${c}</button>`).join('')}</div>`;
+  const items=[];const where={};
+  d.food.forEach(([g,ids])=>ids.forEach(id=>{if(!where[id]){where[id]=[];items.push(id)}where[id].push(g)}));
+  const list=foodCat==='全部'?items:items.filter(id=>where[id].includes(foodCat));
+  h+=`<div class="flist">`+list.map(id=>{const f=F[id];const on=d.slots.some(s=>pickOf(s.k).includes(id));
+    return `<div class="fcard${on?' on':''}"><div class="top"><div style="min-width:0"><div class="nm">${esc(f.n)}</div><div class="cat">${esc(f.c)} · ${esc(f.a)}</div></div><div class="tags">${f.m?'<span class="tag mine">我的收藏</span>':''}${f.ig?'<span class="tag ig">IG 熱門</span>':''}${f.b?'<span class="tag book">可預約</span>':''}</div></div>
     ${f.w?`<div class="why">${esc(f.w)}</div>`:''}<div class="btns">${navBtns(f.g,f.g)}</div>
-    <div class="picks">${d.slots.map(s=>`<button class="pk" aria-pressed="${S.picks[s.k]===id}" data-slot="${s.k}" data-f="${id}">${S.picks[s.k]===id?'✓ ':''}${s.l}</button>`).join('')}</div></div>`}).join('')+`</div>`;
-  });
+    <div class="picks">${d.slots.map(s=>{const p=pickOf(s.k).includes(id);return `<button class="pk" aria-pressed="${p}" data-slot="${s.k}" data-f="${id}">${p?'✓ ':''}${s.l}</button>`}).join('')}</div></div>`}).join('')+`</div>`;
  }
  $('#dayBody').innerHTML=h;
 }
@@ -726,10 +733,12 @@ $('#dayBody').addEventListener('click',e=>{
  const rv=e.target.closest('[data-rv]');if(rv){S.rview=rv.dataset.rv;save();keepScroll(renderPlan);return}
  const pk=e.target.closest('.pk');
  if(pk){const s=pk.dataset.slot,f=pk.dataset.f;
-   if(S.picks[s]===f){delete S.picks[s];toast('已取消')}else{S.picks[s]=f;toast('已排進'+pk.textContent.replace('✓ ',''))}
+   const arr=pickOf(s).slice();const i=arr.indexOf(f);if(i>=0){arr.splice(i,1);toast('已取消')}else{arr.push(f);toast('已加進'+pk.textContent.replace('✓ ',''))}
+   if(arr.length)S.picks[s]=arr;else delete S.picks[s];
    save();keepScroll(renderPlan);return}
- const ffb=e.target.closest('[data-ff]');if(ffb){S.ff=ffb.dataset.ff;save();keepScroll(renderPlan);return}
+ const fcb=e.target.closest('[data-fc]');if(fcb){foodCat=fcb.dataset.fc;keepScroll(renderPlan);return}
  const j=e.target.closest('[data-jump]');
+ if(j&&j.dataset.meal){const d=D.find(x=>x.id===curDay);const m=j.dataset.meal.trim();const c=(d.food||[]).map(x=>x[0]).find(c=>m.includes(c)||c.includes(m));foodCat=c||'全部';renderPlan();const el=$('#foodsec');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
  if(j){const el=$('#'+({food:'foodsec',route:'routesec',floor:'floorsec'})[j.dataset.jump]);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
 });
 $('#dayBody').addEventListener('change',e=>{const c=e.target.closest('[data-shop]');if(!c)return;
