@@ -408,7 +408,8 @@ let S={};
 try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){S={}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(e){return false}}
 S.picks=S.picks||{};for(const k in S.picks){if(!Array.isArray(S.picks[k]))S.picks[k]=[S.picks[k]]}
-const pickOf=k=>S.picks[k]||[]; S.shops=S.shops||{}; S.chk=S.chk||{}; S.exp=S.exp||[]; S.ff=S.ff||'all';
+const pickOf=k=>S.picks[k]||[];
+if(!S.d3v2){S.d3v2=1;if(!S.picks.d3bf)S.picks.d3bf=['f22'];if(!S.picks.d3lun)S.picks.d3lun=['f20'];if(S.times)for(const k in S.times)if(k.startsWith('d3:'))delete S.times[k];save()} S.shops=S.shops||{}; S.chk=S.chk||{}; S.exp=S.exp||[]; S.ff=S.ff||'all';
 S.bud=S.bud||{rate:38.5,total:0};
 
 const $=s=>document.querySelector(s);
@@ -561,15 +562,18 @@ const R={
    {n:'Amuse 聖水旗艦',q:'어뮤즈 성수 플래그십',tip:'粉色系彩妝',warn:'11:00–20:30',walk:'1 分'},
    {n:'Matin Kim 聖水店',q:'마뗑킴 성수',hot:1,opt:1,tip:'韓國人氣女裝，試穿一次限 3 件',warn:'11:30–20:00',walk:'往北約 8 分'}
   ],extra:''}],
- d3:[{t:'西村 → 北村 → 安國 → 益善洞',w:'一路由西往東，不走回頭路',stops:[
-   {n:'Papieo Frost（西村）',q:'Papier Frost Seochon',tip:'文具書店'},
-   {n:'Areu Kiseuto（孝子洞）',q:'Hyoja-dong Seochon shop',tip:'生活雜貨',walk:'5 分'},
-   {n:'通仁市場午餐、景福宮',q:'경복궁',sep:1,tip:'逛完從東邊的建春門出去'},
-   {n:'Kuereun 三清 Signature',q:'Samcheong-dong shoes Kuereun',tip:'鞋',walk:'10 分'},
+ d3:[{t:'安國・北村・三清',w:'吃完 Onion 往北逛，中午剛好到北村吃菜包肉',stops:[
+   {n:'Slowand 安國（Seullouaendeu）',q:'Slowand Anguk',tip:'服飾'},
    {n:'OIMU 北村（Oimyu）',q:'오이뮤 북촌',hot:1,tip:'韓國設計文具、香氛',walk:'5 分'},
-   {n:'Slowand 安國（Seullouaendeu）',q:'Slowand Anguk',tip:'服飾',walk:'6 分'},
-   {n:'益善洞韓屋街',q:'익선동 한옥거리',hot:1,tip:'鹽可頌、韓屋咖啡、小店',walk:'8 分'},
-   {n:'西巡邏路',q:'서순라길',tip:'沿宗廟石牆的韓屋咖啡街，傍晚很好拍',walk:'8 分'}
+   {n:'Kuereun 三清 Signature',q:'Samcheong-dong shoes Kuereun',tip:'鞋',walk:'8 分'}
+  ],extra:''},
+  {t:'西村',w:'景福宮西側出來就到',stops:[
+   {n:'Papieo Frost（西村）',q:'Papier Frost Seochon',tip:'文具書店'},
+   {n:'Areu Kiseuto（孝子洞）',q:'Hyoja-dong Seochon shop',tip:'生活雜貨',walk:'5 分'}
+  ],extra:''},
+  {t:'益善洞 → 西巡邏路',w:'一路逛到西巡邏路坐下來喝咖啡',stops:[
+   {n:'益善洞韓屋街',q:'익선동 한옥거리',hot:1,tip:'鹽可頌、韓屋咖啡、小店'},
+   {n:'西巡邏路',q:'서순라길',tip:'沿宗廟石牆的韓屋咖啡街',walk:'8 分'}
   ],extra:''},
   {t:'東大門夜逛',w:'汗蒸幕出來就近逛',stops:[
    {n:'APM Place',q:'APM PLACE 동대문',tip:'服飾批發商場，深夜才熱鬧'},
@@ -644,21 +648,21 @@ const D=[
  ]},
 {id:3,title:'韓屋與蒸氣浴 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',
  slots:[{k:'d3bf',l:'早餐'},{k:'d3lun',l:'午餐'},{k:'d3cafe',l:'咖啡廳'},{k:'d3din',l:'晚餐'},{k:'d3late',l:'宵夜'}],
- food:[['早餐',['f22','f24','f21']],['午餐',['f15','f16','f17','f18','g13','f20','f19']],['咖啡廳',['f26','f22','g14','g15','g16','g17','f24','f21','f23','f25']],['晚餐',['f27','g18','k2','f29','f30','f31']],['宵夜',['g19','f28','k2']]],
+ food:[['早餐',['f22','f24','f21']],['午餐',['f20','f17','f18','g13','f19','f15','f16']],['咖啡廳',['f26','f22','g14','g15','g16','g17','f24','f21','f23','f25']],['晚餐',['f27','g18','k2','f29','f30','f31']],['宵夜',['g19','f28','k2']]],
  tl:[
   {t:'08:45',k:'move',ti:'弘大入口 → 安國站',d:'2→3 號線 · 約 35 分',p:'anguk'},
-  {t:'09:30',k:'food',ti:'安國早餐',slot:'d3bf',d:''},
-  {t:'10:30',k:'move',ti:'安國 → 景福宮站',d:'3 號線 · 1 站',p:'gbgst'},
-  {t:'10:45',k:'shop',ti:'西村小店',d:'',jump:'route',r:0},
+  {t:'09:30',k:'food',ti:'早餐',slot:'d3bf',d:''},
+  {t:'10:30',k:'shop',ti:'安國・北村・三清逛街',d:'',jump:'route',r:0},
   {t:'12:00',k:'food',ti:'午餐',slot:'d3lun',d:''},
-  {t:'13:00',k:'sight',ti:'景福宮',d:'₩3,000 · 14:00 守門將交接',p:'gbg'},
-  {t:'14:30',k:'shop',ti:'三清洞・北村・安國',d:'',jump:'route',r:-1},
-  {t:'15:45',k:'sight',ti:'益善洞 → 西巡邏路',d:'',p:'ikseon'},
-  {t:'16:45',k:'cafe',ti:'西巡邏路咖啡廳',slot:'d3cafe',d:''},
+  {t:'13:15',k:'sight',ti:'景福宮（可跳過）',d:'₩3,000 · 14:00 守門將交接',p:'gbg'},
+  {t:'14:30',k:'shop',ti:'西村小店',d:'',jump:'route',r:1},
+  {t:'15:15',k:'move',ti:'景福宮站 → 安國站',d:'3 號線 · 1 站，走到益善洞',p:'ikseon'},
+  {t:'15:30',k:'shop',ti:'益善洞 → 西巡邏路',d:'',jump:'route',r:2},
+  {t:'16:30',k:'cafe',ti:'西巡邏路咖啡廳',slot:'d3cafe',d:''},
   {t:'17:45',k:'move',ti:'鍾路 3 街 → 新堂站',d:'5→2 號線 · 約 15 分',p:'sindang'},
   {t:'18:15',k:'food',ti:'晚餐',slot:'d3din',d:''},
   {t:'19:30',k:'sight',ti:'Spa Rex 東大門汗蒸幕',d:'東大門歷史文化公園站 14 號出口 · ₩14,000（20:00 後 ₩16,000）',p:'sparex'},
-  {t:'21:30',k:'shop',ti:'東大門夜逛',d:'',jump:'route',r:1},
+  {t:'21:30',k:'shop',ti:'東大門夜逛',d:'',jump:'route',r:3},
   {t:'23:00',k:'food',ti:'宵夜',slot:'d3late',d:''},
   {t:'00:00',k:'move',ti:'計程車回弘大',d:'約 25 分 · 約 ₩20,000',p:'anook'}
  ]},
