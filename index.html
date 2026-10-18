@@ -299,6 +299,35 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 
 .tin{font-family:var(--font-mono);font-size:.78rem;font-weight:700;color:var(--muted);background:transparent;border:0;border-bottom:1px dashed var(--latte);padding:0;width:44px;text-align:right;-webkit-appearance:none;appearance:none;min-height:0}
 .tin:focus{outline:2px solid var(--sky);color:var(--ink)}
+
+.wadd{margin:8px 0 14px}
+.wrow{display:flex;gap:8px;align-items:center}
+.wrow input[type=text]{flex:1;min-width:0;font:inherit;font-size:1rem;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+.wcam{width:44px;height:44px;flex:none;border:1px dashed var(--latte);border-radius:12px;display:grid;place-items:center;color:var(--muted);cursor:pointer;overflow:hidden;background:var(--card)}
+.wcam svg{width:20px;height:20px}
+.wcam.has{border-style:solid}
+.wcam img{width:100%;height:100%;object-fit:cover}
+.wrow .sbtn{height:44px;padding:0 16px}
+.wareas{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-top:10px;padding-bottom:2px}
+.wareas::-webkit-scrollbar{display:none}
+.wareas button{flex:none;border:1px solid var(--line);background:transparent;border-radius:999px;padding:4px 11px;font-size:.8rem;cursor:pointer;color:var(--muted)}
+.wareas button[aria-pressed="true"]{background:var(--brown);border-color:var(--brown);color:var(--onaccent)}
+.wcount{font-size:.82rem;color:var(--muted);margin:0 0 6px}
+.wcount b{color:var(--ink);font-family:var(--font-mono)}
+.wl{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 14px 8px}
+.wl.empty{padding:18px 14px;color:var(--muted);font-size:.9rem;text-align:center}
+.wgrp{font-size:.74rem;letter-spacing:.12em;color:var(--muted);margin:12px 0 2px}
+.wl ul{list-style:none;margin:0;padding:0}
+.wl li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.wl li:last-child{border-bottom:0}
+.wl label{flex:1;min-width:0;font-size:1rem;cursor:pointer}
+.wl li.done label{text-decoration:line-through;color:var(--muted)}
+.wck{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:1.5px solid var(--latte);border-radius:50%;margin:0;flex:none;display:grid;place-items:center;cursor:pointer;background:transparent}
+.wck:checked{background:var(--brown);border-color:var(--brown)}
+.wck:checked::after{content:"";width:6px;height:11px;border:solid var(--onaccent);border-width:0 2px 2px 0;transform:translateY(-1px) rotate(45deg)}
+.wl .thumb{width:40px;height:40px;border-radius:8px}
+.wl .addph{width:40px;height:40px;border-radius:8px;border:1px dashed var(--line);flex:none!important}
+.wl .addph svg{width:16px;height:16px}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.bottom .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
@@ -565,7 +594,6 @@ const D=[
  food:[['晚餐',['f1','g1','k3','k4','f3','f2']],['宵夜',['f4','f5','f6','g2','k3','k4']]],
  tl:[
   {t:'14:20',k:'move',ti:'抵達仁川機場 T1',d:'',p:'icn'},
-  {t:'15:30',k:'move',ti:'買 T-money＋儲值、領網卡',d:'機場便利商店'},
   {t:'15:45',k:'move',ti:'機場快線 → 弘大入口站',d:'約 66 分 · ₩4,950',p:'hongik'},
   {t:'17:10',k:'stay',ti:'阿努克飯店 Check-in',d:'',p:'anook'},
   {t:'17:45',k:'food',ti:'晚餐',slot:'d1din',d:''},
@@ -882,26 +910,29 @@ $('#tab-pack').addEventListener('submit',e=>{e.preventDefault();const f=e.target
 
 /* ---------- wish list (this phone) ---------- */
 let wishArea='';
-function wishItemHTML(w){const ph=w.img?`<button class="thumbb" data-wview="${w.id}" aria-label="看大圖"><img class="thumb" src="${w.img}" alt=""></button>`:`<label class="addph"><input type="file" accept="image/*" data-wimg="${w.id}" hidden>＋照片</label>`;
- return `<li class="witem ${w.done?'done':''}">${ph}<input type="checkbox" id="w${w.id}" data-wtog="${w.id}" ${w.done?'checked':''}><label for="w${w.id}">${esc(w.t)}${w.price?` <span class="small m">₩${(+w.price).toLocaleString()}</span>`:''}</label><button class="ibtn" data-wdel="${w.id}" aria-label="刪除">×</button></li>`}
+const CAM='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.5"/></svg>';
+function wishItemHTML(w){const ph=w.img?`<button class="thumbb" data-wview="${w.id}" aria-label="看照片"><img class="thumb" src="${w.img}" alt=""></button>`:`<label class="addph" aria-label="加照片"><input type="file" accept="image/*" data-wimg="${w.id}" hidden>${CAM}</label>`;
+ return `<li class="${w.done?'done':''}"><input class="wck" type="checkbox" id="w${w.id}" data-wtog="${w.id}" ${w.done?'checked':''}><label for="w${w.id}">${esc(w.t)}</label>${ph}<button class="ibtn" data-wdel="${w.id}" aria-label="刪除">×</button></li>`}
 function shrink(file){return new Promise((res,rej)=>{const r=new FileReader();r.onerror=rej;r.onload=()=>{const im=new Image();im.onerror=rej;im.onload=()=>{const M=480,k=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.72))};im.src=r.result};r.readAsDataURL(file)})}
 function openLB(w){$('#lbImg').src=w.img;$('#lbCap').textContent=w.t;$('#lightbox').hidden=false}
 $('#lightbox').addEventListener('click',()=>{$('#lightbox').hidden=true;$('#lbImg').removeAttribute('src')});
+let wishPhoto='';
 function renderWish(){
- const L=S.wish;const left=L.filter(w=>!w.done);const est=left.reduce((a,w)=>a+(+w.price||0),0);const r=S.bud.rate||38.5;
- let h=`<h2 class="sec">想買清單</h2><p class="sub">把想買的東西記下來，可以附照片，買到就打勾。標上在哪裡買，行程頁那一天也會提醒你。只存在這支手機。</p>
- <div class="card"><form id="wishForm" class="addrow">
-  <div class="field full"><label for="wT">想買什麼</label><input id="wT" type="text" placeholder="例如 Tamburins 護手霜 000 號" required></div>
-  <div class="field"><label for="wA">在哪裡買</label><select id="wA">${AREAS.map(a=>`<option ${a===wishArea?'selected':''}>${a}</option>`).join('')}</select></div>
-  <div class="field"><label for="wP">預估價格（₩，可不填）</label><input id="wP" type="number" inputmode="numeric" placeholder="例如 32000"></div>
-  <div class="field full"><label for="wF">照片（可不填，可以拍照或從相簿選）</label><input id="wF" type="file" accept="image/*"></div>
-  <div class="full"><button class="primary" type="submit">加入清單</button></div></form>
-  <div class="small" style="margin-top:8px">還沒買 ${left.length} 樣${est?` · 預估 ₩${est.toLocaleString()}（≈ NT$${Math.round(est/r).toLocaleString()}）`:''} · 已買 ${L.length-left.length} 樣</div></div>`;
- if(!L.length)h+=`<div class="card"><span class="small">清單還是空的。先把最想買的幾樣加進來吧。</span></div>`;
- AREAS.forEach(a=>{const items=L.filter(w=>w.area===a);if(!items.length)return;
-  h+=`<h3>${esc(a)} <span class="k">${items.filter(w=>w.done).length}/${items.length}</span></h3><div class="card" style="padding-block:6px"><ul class="chk">${items.map(wishItemHTML).join('')}</ul></div>`});
+ const L=S.wish;const left=L.filter(w=>!w.done).length;if(!wishArea)wishArea=AREAS[0];
+ let h=`<h2 class="sec">想買清單</h2>
+ <form id="wishForm" class="wadd"><div class="wrow"><input id="wT" type="text" placeholder="想買什麼？" autocomplete="off" aria-label="想買什麼">
+  <label class="wcam${wishPhoto?' has':''}" aria-label="加照片">${wishPhoto?`<img src="${wishPhoto}" alt="">`:CAM}<input id="wF" type="file" accept="image/*" hidden></label>
+  <button class="sbtn" type="submit">加入</button></div>
+  <div class="wareas" role="radiogroup" aria-label="在哪裡買">${AREAS.map(a=>`<button type="button" data-wa="${a}" aria-pressed="${a===wishArea}">${a}</button>`).join('')}</div></form>`;
+ if(!L.length)h+=`<div class="wl empty">清單還是空的</div>`;
+ else{h+=`<div class="wcount">還差 <b>${left}</b> 樣 · 已買 ${L.length-left} 樣</div><div class="wl">`;
+  AREAS.forEach(a=>{const items=L.filter(w=>w.area===a);if(!items.length)return;
+   h+=`<div class="wgrp">${esc(a)}</div><ul>${items.map(wishItemHTML).join('')}</ul>`});
+  h+=`</div>`}
  $('#tab-wish').innerHTML=h;
 }
+$('#tab-wish').addEventListener('click',e=>{const a=e.target.closest('[data-wa]');if(!a)return;wishArea=a.dataset.wa;const t=$('#wT')?$('#wT').value:'';keepScroll(renderWish);if($('#wT'))$('#wT').value=t});
+$('#tab-wish').addEventListener('change',async e=>{if(e.target.id!=='wF'||!e.target.files[0])return;const t=$('#wT').value;try{wishPhoto=await shrink(e.target.files[0])}catch(err){toast('這張照片讀不到，換一張試試');return}keepScroll(renderWish);$('#wT').value=t});
 function wishBind(root,after){
  root.addEventListener('change',e=>{const c=e.target.closest('[data-wtog]');if(!c)return;const w=S.wish.find(x=>x.id===c.dataset.wtog);if(w){w.done=c.checked;save();keepScroll(after)}});
  root.addEventListener('click',e=>{const v=e.target.closest('[data-wview]');if(v){const w=S.wish.find(x=>x.id===v.dataset.wview);if(w)openLB(w);return}
@@ -911,12 +942,11 @@ function wishBind(root,after){
   if(!save()){delete w.img;save();toast('手機空間不夠，照片沒存到');return}keepScroll(after);toast('已加照片')});
 }
 wishBind($('#tab-wish'),renderWish);
-$('#tab-wish').addEventListener('submit',async e=>{e.preventDefault();const t=$('#wT').value.trim();if(!t)return;wishArea=$('#wA').value;
- const file=$('#wF').files&&$('#wF').files[0];let img='';if(file){try{img=await shrink(file)}catch(err){toast('照片讀不到，先存文字')}}
- const w={id:'w'+uid(),t,area:wishArea,price:+$('#wP').value||0,done:false};if(img)w.img=img;S.wish.push(w);
- if(!save()){delete w.img;save();toast('手機空間不夠，照片沒存到')}else toast('已加入');keepScroll(renderWish)});
+$('#tab-wish').addEventListener('submit',e=>{e.preventDefault();const t=$('#wT').value.trim();if(!t)return;
+ const w={id:'w'+uid(),t,area:wishArea,done:false};if(wishPhoto)w.img=wishPhoto;S.wish.push(w);
+ if(!save()){delete w.img;save();toast('手機空間不夠，照片沒存到')}else toast('已加入');wishPhoto='';keepScroll(renderWish);const n=$('#wT');if(n)n.focus()});
 function wishForDay(id){const as=DAYAREAS[id]||[];const items=S.wish.filter(w=>as.includes(w.area));if(!items.length)return '';
- return `<h3>今天想買的 <span class="k">來自想買清單</span></h3><div class="card" style="padding-block:6px" id="dayWish"><ul class="chk">${items.map(wishItemHTML).join('')}</ul></div>`}
+ return `<h3>今天想買的</h3><div class="wl" id="dayWish"><ul>${items.map(wishItemHTML).join('')}</ul></div>`}
 
 /* ---------- money ---------- */
 function owedOf(e,who){return e.split==='both'?e.twd/2:(e.split===who?e.twd:0)}
