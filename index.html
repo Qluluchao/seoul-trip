@@ -339,6 +339,10 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .wl .thumb{width:40px;height:40px;border-radius:8px}
 .wl .addph{width:40px;height:40px;border-radius:8px;border:1px dashed var(--line);flex:none!important}
 .wl .addph svg{width:16px;height:16px}
+
+.wstorein{width:100%;margin-top:8px;font:inherit;font-size:.92rem;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+.wstore{display:block;font-size:.76rem;color:var(--muted);margin-top:1px}
+.wl li.done .wstore{text-decoration:none}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.bottom .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
@@ -936,27 +940,31 @@ $('#tab-pack').addEventListener('submit',e=>{e.preventDefault();const f=e.target
 let wishArea='';
 const CAM='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13.5" r="3.5"/></svg>';
 function wishItemHTML(w){const ph=w.img?`<button class="thumbb" data-wview="${w.id}" aria-label="看照片"><img class="thumb" src="${w.img}" alt=""></button>`:`<label class="addph" aria-label="加照片"><input type="file" accept="image/*" data-wimg="${w.id}" hidden>${CAM}</label>`;
- return `<li class="${w.done?'done':''}"><input class="wck" type="checkbox" id="w${w.id}" data-wtog="${w.id}" ${w.done?'checked':''}><label for="w${w.id}">${esc(w.t)}</label>${ph}<button class="ibtn" data-wdel="${w.id}" aria-label="刪除">×</button></li>`}
+ return `<li class="${w.done?'done':''}"><input class="wck" type="checkbox" id="w${w.id}" data-wtog="${w.id}" ${w.done?'checked':''}><label for="w${w.id}">${esc(w.t)}${w.store?`<small class="wstore">${esc(w.store)}</small>`:''}</label>${ph}<button class="ibtn" data-wdel="${w.id}" aria-label="刪除">×</button></li>`}
 function shrink(file){return new Promise((res,rej)=>{const r=new FileReader();r.onerror=rej;r.onload=()=>{const im=new Image();im.onerror=rej;im.onload=()=>{const M=480,k=Math.min(1,M/Math.max(im.width,im.height));const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.72))};im.src=r.result};r.readAsDataURL(file)})}
 function openLB(w){$('#lbImg').src=w.img;$('#lbCap').textContent=w.t;$('#lightbox').hidden=false}
 $('#lightbox').addEventListener('click',()=>{$('#lightbox').hidden=true;$('#lbImg').removeAttribute('src')});
-let wishPhoto='';
+let wishPhoto='',wishDay=0;
+const WDAYS=[[0,'不限']].concat([1,2,3,4,5,6].map(i=>[i,'D'+i+' '+['12/2','12/3','12/4','12/5','12/6','12/7'][i-1]]));
+function wishDayOf(w){if(w.day!==undefined)return w.day;for(const k in DAYAREAS)if(DAYAREAS[k].includes(w.area))return +k;return 0}
 function renderWish(){
- const L=S.wish;const left=L.filter(w=>!w.done).length;if(!wishArea)wishArea=AREAS[0];
+ const L=S.wish;const left=L.filter(w=>!w.done).length;
  let h=`<h2 class="sec">想買清單</h2>
  <form id="wishForm" class="wadd"><div class="wrow"><input id="wT" type="text" placeholder="想買什麼？" autocomplete="off" aria-label="想買什麼">
   <label class="wcam${wishPhoto?' has':''}" aria-label="加照片">${wishPhoto?`<img src="${wishPhoto}" alt="">`:CAM}<input id="wF" type="file" accept="image/*" hidden></label>
   <button class="sbtn" type="submit">加入</button></div>
-  <div class="wareas" role="radiogroup" aria-label="在哪裡買">${AREAS.map(a=>`<button type="button" data-wa="${a}" aria-pressed="${a===wishArea}">${a}</button>`).join('')}</div></form>`;
+  <input id="wS" class="wstorein" type="text" placeholder="店名（可不填）" autocomplete="off" aria-label="店名">
+  <div class="wareas" role="radiogroup" aria-label="第幾天買">${WDAYS.map(([i,l])=>`<button type="button" data-wd="${i}" aria-pressed="${i===wishDay}">${l}</button>`).join('')}</div></form>`;
  if(!L.length)h+=`<div class="wl empty">清單還是空的</div>`;
  else{h+=`<div class="wcount">還差 <b>${left}</b> 樣 · 已買 ${L.length-left} 樣</div><div class="wl">`;
-  AREAS.forEach(a=>{const items=L.filter(w=>w.area===a);if(!items.length)return;
-   h+=`<div class="wgrp">${esc(a)}</div><ul>${items.map(wishItemHTML).join('')}</ul>`});
+  [1,2,3,4,5,6,0].forEach(i=>{const items=L.filter(w=>wishDayOf(w)===i);if(!items.length)return;
+   h+=`<div class="wgrp">${i?esc(WDAYS[i][1]+' · '+D[i-1].area):'不限哪天'}</div><ul>${items.map(wishItemHTML).join('')}</ul>`});
   h+=`</div>`}
  $('#tab-wish').innerHTML=h;
 }
-$('#tab-wish').addEventListener('click',e=>{const a=e.target.closest('[data-wa]');if(!a)return;wishArea=a.dataset.wa;const t=$('#wT')?$('#wT').value:'';keepScroll(renderWish);if($('#wT'))$('#wT').value=t});
-$('#tab-wish').addEventListener('change',async e=>{if(e.target.id!=='wF'||!e.target.files[0])return;const t=$('#wT').value;try{wishPhoto=await shrink(e.target.files[0])}catch(err){toast('這張照片讀不到，換一張試試');return}keepScroll(renderWish);$('#wT').value=t});
+function keepWishInputs(fn){const t=$('#wT')?$('#wT').value:'',st=$('#wS')?$('#wS').value:'';keepScroll(fn);if($('#wT'))$('#wT').value=t;if($('#wS'))$('#wS').value=st}
+$('#tab-wish').addEventListener('click',e=>{const a=e.target.closest('[data-wd]');if(!a)return;wishDay=+a.dataset.wd;keepWishInputs(renderWish)});
+$('#tab-wish').addEventListener('change',async e=>{if(e.target.id!=='wF'||!e.target.files[0])return;try{wishPhoto=await shrink(e.target.files[0])}catch(err){toast('這張照片讀不到，換一張試試');return}keepWishInputs(renderWish)});
 function wishBind(root,after){
  root.addEventListener('change',e=>{const c=e.target.closest('[data-wtog]');if(!c)return;const w=S.wish.find(x=>x.id===c.dataset.wtog);if(w){w.done=c.checked;save();keepScroll(after)}});
  root.addEventListener('click',e=>{const v=e.target.closest('[data-wview]');if(v){const w=S.wish.find(x=>x.id===v.dataset.wview);if(w)openLB(w);return}
@@ -967,9 +975,9 @@ function wishBind(root,after){
 }
 wishBind($('#tab-wish'),renderWish);
 $('#tab-wish').addEventListener('submit',e=>{e.preventDefault();const t=$('#wT').value.trim();if(!t)return;
- const w={id:'w'+uid(),t,area:wishArea,done:false};if(wishPhoto)w.img=wishPhoto;S.wish.push(w);
+ const w={id:'w'+uid(),t,store:($('#wS').value||'').trim(),day:wishDay,done:false};if(wishPhoto)w.img=wishPhoto;S.wish.push(w);
  if(!save()){delete w.img;save();toast('手機空間不夠，照片沒存到')}else toast('已加入');wishPhoto='';keepScroll(renderWish);const n=$('#wT');if(n)n.focus()});
-function wishForDay(id){const as=DAYAREAS[id]||[];const items=S.wish.filter(w=>as.includes(w.area));if(!items.length)return '';
+function wishForDay(id){const items=S.wish.filter(w=>wishDayOf(w)===id);if(!items.length)return '';
  return `<h3>今天想買的</h3><div class="wl" id="dayWish"><ul>${items.map(wishItemHTML).join('')}</ul></div>`}
 
 /* ---------- money ---------- */
