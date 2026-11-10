@@ -343,6 +343,8 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .wstorein{width:100%;margin-top:8px;font:inherit;font-size:.92rem;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
 .wstore{display:block;font-size:.76rem;color:var(--muted);margin-top:1px}
 .wl li.done .wstore{text-decoration:none}
+.vsw{margin:12px 0 2px;flex-wrap:wrap}
+.vsw button{padding:6px 12px;font-size:.82rem}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--card);border-top:1px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
 nav.bottom .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}
@@ -440,7 +442,10 @@ const P={
  myeongdong:{g:'Myeongdong Station',nv:'명동역'},
  lotte:{g:'Lotte Mart Seoul Station',nv:'롯데마트 제타플렉스 서울역점'},
  seoulst:{g:'Seoul Station',nv:'서울역'},
- unseo:{g:'Unseo Station',nv:'운서역'}
+ unseo:{g:'Unseo Station',nv:'운서역'},
+ inspire:{g:'INSPIRE Entertainment Resort',nv:'인스파이어 엔터테인먼트 리조트'},
+ jotang:{g:'Incheon Jotang',nv:'인천조탕'},
+ cargo:{g:'Sindang Station Exit 10',nv:'신당역 10번출구'}
 };
 
 /* food: m = from your Naver list, ig = popular pick added */
@@ -487,6 +492,7 @@ const F={
  f41:{n:'Rijeongwon 明洞店',c:'烤肉',g:'리정원 명동',a:'明洞',m:1},
  f42:{n:'乙支精肉',c:'烤豬肉',g:'을지정육',b:1,a:'乙支路',m:1},
  f43:{n:'Sukseongdo 乙支路店',c:'熟成豬肉',g:'숙성도 을지로',b:1,a:'乙支路',m:1},
+ p1:{n:'INSPIRE Oasis 美食村',c:'韓式、中式、披薩、漢堡、火鍋',g:'인스파이어 오아시스 고메 빌리지',w:'週末 10:00–21:00，看完燈光秀就近吃',a:'INSPIRE',ig:1},
  n1:{n:'BHC 炸雞 雲西站店',c:'炸雞',g:'bhc치킨 운서역점',w:'雲西站商圈，營業到深夜',a:'雲西',ig:1},
  n2:{n:'OvenMaru 烤頂雞 雲西店',c:'烤箱炸雞',g:'오븐마루치킨 운서',w:'雲西站商圈，營業到深夜',a:'雲西',ig:1},
  n3:{n:'雲西站馬鈴薯排骨湯',c:'馬鈴薯排骨湯',g:'운서역 감자탕',w:'雲西站一帶有營業到很晚的湯飯店',a:'雲西',ig:1},
@@ -606,6 +612,11 @@ const R={
    {n:'Juuneedu 明洞',q:'쥬니쥬 명동점',hot:1,tip:'人氣睡衣',walk:'1 分'},
    {n:'Mimi Line 明洞',q:'미미라인 명동점',tip:'2–4 樓飾品、服飾、保養品',walk:'4 分'},
    {n:'Daiso 明洞站店',q:'다이소 명동역점',hot:1,tip:'12 層樓，明洞站 2 號出口旁',walk:'2 分'}
+  ],extra:''},
+  {t:'雲西站商圈',w:'飯店走路就到',stops:[
+   {n:'樂天超市 永宗島店',q:'롯데마트 영종도점',hot:1,tip:'零食伴手禮最後補貨'},
+   {n:'Olive Young 雲西',q:'올리브영 운서',tip:'保養品補貨',walk:'約 3 分'},
+   {n:'Daiso 雲西',q:'다이소 운서역점',tip:'生活小物',walk:'約 3 分'}
   ],extra:''}]
 };
 
@@ -695,8 +706,29 @@ const D=[
   {t:'19:30',k:'move',ti:'首爾站 → 弘大入口，拿行李',d:'機場快線 · 約 15 分',p:'anook'},
   {t:'20:00',k:'move',ti:'弘大入口 → 雲西站',d:'機場快線普通列車 · 約 55 分 · 約 ₩4,500',p:'unseo'},
   {t:'21:00',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'},
-  {t:'21:30',k:'food',ti:'宵夜',slot:'d5late',d:''}
- ]},
+  {t:'21:15',k:'shop',ti:'雲西站商圈逛逛',d:'',jump:'route',r:1},
+  {t:'22:00',k:'food',ti:'宵夜',slot:'d5late',d:''},
+  {t:'22:45',k:'sight',ti:'INSPIRE Aurora 燈光秀（可跳過）',d:'整點播放 · 免費 · 計程車約 10 分',p:'inspire'}
+ ],
+ alt:{key:'d5B',area:'寄行李・弘大醫美 → 雲西',slots:[{k:'d5Blun',l:'午餐'},{k:'d5Bdin',l:'晚餐'},{k:'d5late',l:'宵夜'}],
+  food:[['午餐',['g1','f3','f1','g2','f39']],['晚餐',['p1','n1','n2','n3']],['宵夜',['n1','n2','n3','n4']]],
+  tl:[
+  {t:'08:30',k:'stay',ti:'收行李、Check-out',d:'大行李寄放櫃台',p:'anook'},
+  {t:'09:00',k:'move',ti:'計程車 → 新堂',d:'約 30 分 · 約 ₩15,000',p:'cargo'},
+  {t:'09:30',k:'stay',ti:'韓好運寄行李',d:'新堂站 10 號出口 · 24 小時自助',p:'cargo'},
+  {t:'10:15',k:'move',ti:'新堂 → 弘大入口',d:'2 號線 · 約 30 分',p:'hongik'},
+  {t:'11:00',k:'sight',ti:'弘大醫美',d:''},
+  {t:'13:00',k:'food',ti:'午餐',slot:'d5Blun',d:''},
+  {t:'14:15',k:'move',ti:'拿行李 → 雲西站',d:'機場快線普通列車 · 約 55 分 · 約 ₩4,500',p:'unseo'},
+  {t:'15:15',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'},
+  {t:'16:00',k:'shop',ti:'雲西站商圈逛街',d:'',jump:'route',r:1},
+  {t:'17:30',k:'move',ti:'計程車 → INSPIRE',d:'約 10 分',p:'inspire'},
+  {t:'17:45',k:'food',ti:'晚餐',slot:'d5Bdin',d:''},
+  {t:'19:00',k:'sight',ti:'Aurora 燈光秀＋聖誕裝飾',d:'整點播放 · 免費',p:'inspire'},
+  {t:'19:45',k:'sight',ti:'仁川潮湯 汗蒸幕（醫美當天建議不要進）',d:'24 小時 · 汗蒸幕 ₩18,000 · 計程車約 15 分',p:'jotang'},
+  {t:'22:00',k:'move',ti:'計程車回飯店',d:'約 15 分',p:'airrelax'},
+  {t:'22:15',k:'food',ti:'宵夜',slot:'d5late',d:''}
+ ]}},
 {id:6,title:'滿載而歸之日 ✈️',date:'12/7',wd:'一',area:'回家',living:500,slots:[],food:[],
  tl:[
   {t:'04:50',k:'stay',ti:'起床',d:''},
@@ -771,9 +803,9 @@ function wxHTML(d){const iso='2026-12-0'+(d.id+1);const f=WX&&WX.d&&WX.d[iso];
   WX={t:Date.now(),d};try{localStorage.setItem('seoul-wx',JSON.stringify(WX))}catch(e){}if(curTab==='plan')keepScroll(renderPlan)}).catch(()=>{})})();
 function renderPlan(){
  renderStrip();
- const d=D.find(x=>x.id===curDay);
- let h=`<div class="dayhead"><div class="dt"><div class="date">DAY ${d.id} · ${d.date}（${d.wd}）</div><div class="area">${esc(d.title)}</div><span class="loc">${pin}${esc(d.area)}</span></div>${wxHTML(d)}</div>`;
- S.times=S.times||{};const tKey=(i)=>'d'+d.id+':'+i;const tv=(it,i)=>S.times[tKey(i)]||it.t;const sortV=t=>{const[h,m]=t.split(':').map(Number);return (h<5?h+24:h)*60+m};
+ const d0=D.find(x=>x.id===curDay);const useB=d0.alt&&S.d5v==='B';const d=useB?Object.assign({},d0,d0.alt):d0;
+ let h=`<div class="dayhead"><div class="dt"><div class="date">DAY ${d.id} · ${d.date}（${d.wd}）</div><div class="area">${esc(d.title)}</div><span class="loc">${pin}${esc(d.area)}</span></div>${wxHTML(d)}</div>`+(d0.alt?`<div class="filter vsw" role="group" aria-label="行程版本"><button data-d5v="A" aria-pressed="${!useB}">A　醫美 → 明洞</button><button data-d5v="B" aria-pressed="${useB}">B　寄行李 → 醫美 → 雲西</button></div>`:'');
+ S.times=S.times||{};const tKey=(i)=>(d.key||'d'+d.id)+':'+i;const tv=(it,i)=>S.times[tKey(i)]||it.t;const sortV=t=>{const[h,m]=t.split(':').map(Number);return (h<5?h+24:h)*60+m};
  const order=d.tl.map((it,i)=>i).sort((a,b)=>sortV(tv(d.tl[a],a))-sortV(tv(d.tl[b],b))||a-b);
  h+=`<ol class="tl">`+order.map(i=>{const it=d.tl[i];
    const mapI=it.p?navBtns(P[it.p].g,P[it.p].nv):'';
@@ -803,6 +835,7 @@ function renderPlan(){
 }
 function keepScroll(fn){const y=window.scrollY;fn();window.scrollTo({top:y})}
 $('#dayBody').addEventListener('click',e=>{
+ const vb=e.target.closest('[data-d5v]');if(vb){S.d5v=vb.dataset.d5v;foodCat='全部';save();keepScroll(renderPlan);return}
  const ch=e.target.closest('[data-chip]');if(ch){openChip=openChip===ch.dataset.chip?null:ch.dataset.chip;keepScroll(renderPlan);return}
  const rv=e.target.closest('[data-rv]');if(rv){S.rview=rv.dataset.rv;save();keepScroll(renderPlan);return}
  const pk=e.target.closest('.pk');
@@ -812,10 +845,10 @@ $('#dayBody').addEventListener('click',e=>{
    save();keepScroll(renderPlan);return}
  const fcb=e.target.closest('[data-fc]');if(fcb){foodCat=fcb.dataset.fc;keepScroll(renderPlan);return}
  const j=e.target.closest('[data-jump]');
- if(j&&j.dataset.meal){const d=D.find(x=>x.id===curDay);const m=j.dataset.meal.trim();const c=(d.food||[]).map(x=>x[0]).find(c=>m.includes(c)||c.includes(m));foodCat=c||'全部';renderPlan();const el=$('#foodsec');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
+ if(j&&j.dataset.meal){const d0=D.find(x=>x.id===curDay);const d=(d0.alt&&S.d5v==='B')?Object.assign({},d0,d0.alt):d0;const m=j.dataset.meal.trim();const c=(d.food||[]).map(x=>x[0]).find(c=>m.includes(c)||c.includes(m));foodCat=c||'全部';renderPlan();const el=$('#foodsec');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});return}
  if(j){const el=$('#'+({food:'foodsec',route:'routesec',floor:'floorsec'})[j.dataset.jump]);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
 });
-$('#dayBody').addEventListener('change',e=>{const tk=e.target.closest('[data-tk]');if(tk){S.times=S.times||{};const def=D.find(x=>x.id===curDay).tl[+tk.dataset.tk.split(':')[1]].t;const m=tk.value.trim().replace('：',':').match(/^(\d{1,2}):?(\d{2})$/);let v=null;if(m&&+m[1]<24&&+m[2]<60)v=String(+m[1]).padStart(2,'0')+':'+m[2];if(!tk.value.trim()||v===def)delete S.times[tk.dataset.tk];else if(v)S.times[tk.dataset.tk]=v;else{toast('時間格式像 09:30');}save();keepScroll(renderPlan);return}const c=e.target.closest('[data-shop]');if(!c)return;
+$('#dayBody').addEventListener('change',e=>{const tk=e.target.closest('[data-tk]');if(tk){S.times=S.times||{};const dd=D.find(x=>x.id===curDay);const def=((dd.alt&&tk.dataset.tk.startsWith(dd.alt.key+':'))?dd.alt.tl:dd.tl)[+tk.dataset.tk.split(':')[1]].t;const m=tk.value.trim().replace('：',':').match(/^(\d{1,2}):?(\d{2})$/);let v=null;if(m&&+m[1]<24&&+m[2]<60)v=String(+m[1]).padStart(2,'0')+':'+m[2];if(!tk.value.trim()||v===def)delete S.times[tk.dataset.tk];else if(v)S.times[tk.dataset.tk]=v;else{toast('時間格式像 09:30');}save();keepScroll(renderPlan);return}const c=e.target.closest('[data-shop]');if(!c)return;
  if(c.checked)S.shops[c.dataset.shop]=1;else delete S.shops[c.dataset.shop];save();c.closest('.stop').classList.toggle('done',c.checked)});
 
 const LEGS=[
