@@ -19,7 +19,7 @@
 :root{
   --paper:#FFF1D9; --card:#FFF8EC; --ink:#3A2A1C; --muted:#7D6750; --line:#EBDCC2;
   --brown:#7A5B3E; --latte:#C9AE8C; --blue:#5A6B7C; --sky:#708090; --onsky:#FFFFFF; --chip:#F5E4C6; --warn:#A5533B; --onaccent:#FFFFFF;
-  --c-shop:#727420; --c-move:#2E6E9E; --c-food:#C27A28; --c-med:#A84A6A;
+  --c-shop:#727420; --c-move:#2E6E9E; --c-food:#C27A28; --c-med:#A84A6A; --c-fly:#2C8577; --c-stay:#7A5AA6;
   --sk1:#5F6F80; --sk2:#9AA8B6; --hill1:#56636F; --hill2:#7C8B99; --roofc:#7A5B3E; --snowc:#FFF1D9;
   --font-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
   --font-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
@@ -28,10 +28,10 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#1F1812; --card:#2A2119; --ink:#FFF1D9; --muted:#BCA88F; --line:#3E3226;
-  --brown:#C9A27C; --latte:#8E7559; --blue:#A9B6C3; --sky:#8E9DAC; --onsky:#1F1812; --chip:#33281E; --warn:#E08A6E; --onaccent:#1F1812; --c-shop:#8E8C34; --c-move:#3F8AC4; --c-food:#B9802F; --c-med:#BE5C80; --sk1:#232B33; --sk2:#47525E; --hill1:#1E252C; --hill2:#323C46; --roofc:#5E4630; --snowc:#F3E6CF; color-scheme:dark }}
+  --brown:#C9A27C; --latte:#8E7559; --blue:#A9B6C3; --sky:#8E9DAC; --onsky:#1F1812; --chip:#33281E; --warn:#E08A6E; --onaccent:#1F1812; --c-shop:#8E8C34; --c-move:#3F8AC4; --c-food:#B9802F; --c-med:#BE5C80; --c-fly:#3FA595; --c-stay:#9A7CC6; --sk1:#232B33; --sk2:#47525E; --hill1:#1E252C; --hill2:#323C46; --roofc:#5E4630; --snowc:#F3E6CF; color-scheme:dark }}
 :root[data-theme="dark"]{
   --paper:#1F1812; --card:#2A2119; --ink:#FFF1D9; --muted:#BCA88F; --line:#3E3226;
-  --brown:#C9A27C; --latte:#8E7559; --blue:#A9B6C3; --sky:#8E9DAC; --onsky:#1F1812; --chip:#33281E; --warn:#E08A6E; --onaccent:#1F1812; --c-shop:#8E8C34; --c-move:#3F8AC4; --c-food:#B9802F; --c-med:#BE5C80; --sk1:#232B33; --sk2:#47525E; --hill1:#1E252C; --hill2:#323C46; --roofc:#5E4630; --snowc:#F3E6CF; color-scheme:dark }
+  --brown:#C9A27C; --latte:#8E7559; --blue:#A9B6C3; --sky:#8E9DAC; --onsky:#1F1812; --chip:#33281E; --warn:#E08A6E; --onaccent:#1F1812; --c-shop:#8E8C34; --c-move:#3F8AC4; --c-food:#B9802F; --c-med:#BE5C80; --c-fly:#3FA595; --c-stay:#9A7CC6; --sk1:#232B33; --sk2:#47525E; --hill1:#1E252C; --hill2:#323C46; --roofc:#5E4630; --snowc:#F3E6CF; color-scheme:dark }
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -243,7 +243,11 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .dot{width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:1px}
 .lgd .small{text-align:right}
 .flabel{font-size:.78rem;color:var(--muted)}
-.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cust{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cust[hidden]{display:none}
+.edbtn{border:0;background:none;color:var(--brown);cursor:pointer;font-size:.8rem;padding:0 0 0 6px}
+.editing{outline:2px solid var(--brown);outline-offset:2px}
 .seg label{position:relative}
 .seg input{position:absolute;opacity:0;inset:0}
 .seg span{display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 4px;border:1px solid var(--line);border-radius:9px;font-size:.85rem;cursor:pointer;background:var(--paper)}
@@ -929,7 +933,7 @@ const CHK=[
  ['購物準備',['摺疊購物袋','預留行李箱空間','行李秤']]
 ];
 /* ---------- shared store: expenses + names in db when available, else this phone ---------- */
-const CATS=[['shop','購物'],['move','交通'],['food','伙食'],['med','醫美']];
+const CATS=[['shop','購物'],['food','伙食'],['move','交通'],['med','醫美'],['fly','機票'],['stay','住宿']];
 const CATN=Object.fromEntries(CATS);
 const AREAS=['弘大・合井','聖水','西村・安國・益善洞','東大門','延南','現代百貨','明洞','超市・伴手禮','其他'];
 const DAYAREAS={1:['弘大・合井'],2:['聖水'],3:['西村・安國・益善洞','東大門'],4:['延南','現代百貨'],5:['明洞','超市・伴手禮']};
@@ -1155,7 +1159,7 @@ function wishForDay(id){const items=S.wish.filter(w=>wishDayOf(w)===id);if(!item
  return `<h3>今天想買的</h3><div class="wl" id="dayWish"><ul>${items.map(wishItemHTML).join('')}</ul></div>`}
 
 /* ---------- money ---------- */
-function owedOf(e,who){return e.split==='both'?e.twd/2:(e.split===who?e.twd:0)}
+function owedOf(e,who){if(e.split==='custom')return who==='a'?(+e.sa||0):(+e.sb||0);return e.split==='both'?e.twd/2:(e.split===who?e.twd:0)}
 function donut(parts,total){
  const R=70,r=46,cx=90,cy=90;let a0=-Math.PI/2;const gap=total?0.02:0;
  if(!total)return `<svg viewBox="0 0 180 180" class="donut" role="img" aria-label="還沒有花費"><circle cx="${cx}" cy="${cy}" r="${(R+r)/2}" fill="none" stroke="var(--chip)" stroke-width="${R-r}"/></svg>`;
@@ -1170,6 +1174,10 @@ function donut(parts,total){
  return s+`</svg>`;
 }
 let pieWho='all';
+let EDIT=null;
+function custShow(e,w){const v=w==='a'?e.sa:e.sb;return e.cur==='twd'?Math.round(v*100)/100:Math.round(v*(S.bud.rate||38.5))}
+async function updExp(o){if(ST.ro)return dbFail({code:'invalid_argument'});
+ if(DB){try{await DB.collection('expenses').doc(o.id).set(o)}catch(e){dbFail(e)}}else{const i=ST.exp.findIndex(x=>x.id===o.id);if(i>=0)ST.exp[i]=o;localSave();rerender()}}
 function renderMoney(){
  const b=S.bud,r=b.rate||38.5,N=ST.names,fmt=n=>Math.round(n).toLocaleString();
  const E=ST.exp;
@@ -1187,23 +1195,24 @@ function renderMoney(){
  <h3>我這次花了多少</h3><div class="card">
   <div class="pie">${donut(parts,tot)}<div class="pietot"><div class="small">我的花費</div><div class="big">NT$${fmt(tot)}</div><div class="small">≈ ₩${fmt(tot*r)}</div></div></div>
   <ul class="lgd">${parts.map(p=>`<li><i style="background:var(--${p.k})"></i><span>${p.l}</span><span class="m">NT$${fmt(p.v)}</span><span class="m small">${tot?Math.round(p.v/tot*100):0}%</span></li>`).join('')}</ul>
-  <div class="small">只算你自己的部分：「兩人平分」算一半，「只算 Chelsea」不算。</div>
+  <div class="small">只算你自己的部分：「兩人平分」算一半，「各算各的」只算你那份，「只算 Chelsea」不算。</div>
   <div class="ppl" style="margin-top:10px"><div class="field"><label for="bTotal">我的預算（NT$）</label><input id="bTotal" type="number" inputmode="numeric" placeholder="例如 30000" value="${b.total||''}"></div>
   <div class="field"><label for="bRate">1 台幣 = ? 韓元</label><input id="bRate" type="number" step="0.1" inputmode="decimal" value="${r}"></div></div>
   ${total?`<div class="bar${mySpent>total?' over':''}" style="margin-top:10px"><i style="width:${pc}%"></i></div><div class="small">已花 NT$${fmt(mySpent)}，還剩 <b class="m" style="color:${left<0?'var(--warn)':'var(--brown)'}">NT$${fmt(left)}</b>（≈ ₩${fmt(left*r)}）</div>`:''}</div>
  <h3>誰要給誰</h3><div class="card">${settle}
   <div class="small" style="margin-top:6px">${esc(N.a)} 付了 NT$${fmt(paid.a)}，該出 NT$${fmt(owe.a)}；${esc(N.b)} 付了 NT$${fmt(paid.b)}，該出 NT$${fmt(owe.b)}</div></div>
- <h3>記一筆</h3><div class="card"><form id="expForm" class="addrow">
-  <div class="field"><label for="eAmt">金額</label><input id="eAmt" type="number" inputmode="decimal" placeholder="例如 12000" required></div>
-  <div class="field"><label for="eCur">幣別</label><select id="eCur"><option value="krw">韓元 ₩</option><option value="twd">台幣 NT$</option></select></div>
-  <div class="field full"><span class="flabel">種類</span><div class="seg" role="radiogroup" aria-label="種類">${CATS.map(([k,l],i)=>`<label><input type="radio" name="eCat" value="${k}" ${i===0?'checked':''}><span><i style="background:var(--c-${k})"></i>${l}</span></label>`).join('')}</div></div>
-  <div class="field"><label for="ePayer">誰付的</label><select id="ePayer"><option value="a" ${me==='a'?'selected':''}>${esc(N.a)}</option><option value="b" ${me==='b'?'selected':''}>${esc(N.b)}</option></select></div>
-  <div class="field"><label for="eSplit">算誰的</label><select id="eSplit"><option value="both">兩人平分</option><option value="a">只算 ${esc(N.a)}</option><option value="b">只算 ${esc(N.b)}</option></select></div>
-  <div class="field"><label for="eDay">日期</label><select id="eDay">${D.map(d=>`<option value="${d.id}" ${d.id===curDay?'selected':''}>${d.date}（${d.wd}）</option>`).join('')}</select></div>
-  <div class="field"><label for="eNote">內容</label><input id="eNote" type="text" placeholder="例如 晚餐 辣燉排骨"></div>
-  <div class="full"><button class="primary" type="submit" ${ST.ro?'disabled':''}>記一筆</button></div></form></div>
+ <h3 id="expHd">${EDIT?'修改這筆':'記一筆'}</h3><div class="card${EDIT?' editing':''}"><form id="expForm" class="addrow">
+  <div class="field"><label for="eAmt">總金額</label><input id="eAmt" type="number" inputmode="decimal" placeholder="例如 12000" required value="${EDIT?(EDIT.cur==='twd'?EDIT.twd:EDIT.krw):''}"></div>
+  <div class="field"><label for="eCur">幣別</label><select id="eCur"><option value="krw" ${EDIT&&EDIT.cur==='twd'?'':'selected'}>韓元 ₩</option><option value="twd" ${EDIT&&EDIT.cur==='twd'?'selected':''}>台幣 NT$</option></select></div>
+  <div class="field full"><span class="flabel">種類</span><div class="seg" role="radiogroup" aria-label="種類">${CATS.map(([k,l],i)=>`<label><input type="radio" name="eCat" value="${k}" ${(EDIT?EDIT.cat===k:i===0)?'checked':''}><span><i style="background:var(--c-${k})"></i>${l}</span></label>`).join('')}</div></div>
+  <div class="field"><label for="ePayer">誰付的</label><select id="ePayer"><option value="a" ${(EDIT?EDIT.payer:me)==='a'?'selected':''}>${esc(N.a)}</option><option value="b" ${(EDIT?EDIT.payer:me)==='b'?'selected':''}>${esc(N.b)}</option></select></div>
+  <div class="field"><label for="eSplit">算誰的</label><select id="eSplit">${[['both','兩人平分'],['a','只算 '+N.a],['b','只算 '+N.b],['custom','各算各的金額']].map(([v,l])=>`<option value="${v}" ${(EDIT?EDIT.split:'both')===v?'selected':''}>${esc(l)}</option>`).join('')}</select></div>
+  <div class="full cust" id="eCust" ${EDIT&&EDIT.split==='custom'?'':'hidden'}><div class="field"><label for="eSa">${esc(N.a)} 的部分</label><input id="eSa" type="number" inputmode="decimal" value="${EDIT&&EDIT.split==='custom'?custShow(EDIT,'a'):''}"></div><div class="field"><label for="eSb">${esc(N.b)} 的部分</label><input id="eSb" type="number" inputmode="decimal" value="${EDIT&&EDIT.split==='custom'?custShow(EDIT,'b'):''}"></div><div class="small full" style="grid-column:1/-1">填一邊，另一邊會自動算；幣別跟上面一樣</div></div>
+  <div class="field"><label for="eDay">日期</label><select id="eDay">${D.map(d=>`<option value="${d.id}" ${d.id===(EDIT?EDIT.day:curDay)?'selected':''}>${d.date}（${d.wd}）</option>`).join('')}</select></div>
+  <div class="field"><label for="eNote">內容</label><input id="eNote" type="text" placeholder="例如 晚餐 辣燉排骨" value="${EDIT?esc(EDIT.note||''):''}"></div>
+  <div class="full" style="display:flex;gap:8px"><button class="primary" type="submit" style="flex:1" ${ST.ro?'disabled':''}>${EDIT?'存修改':'記一筆'}</button>${EDIT?'<button class="sbtn" type="button" data-ecancel="1">取消</button>':''}</div></form></div>
  <h3>紀錄</h3>`+
- (byDay.length?byDay.map(({d,list})=>`<div class="card" style="padding-block:8px"><div class="small" style="display:flex;justify-content:space-between;gap:8px"><span>${d.date}（${d.wd}）${esc(d.area)}</span><span class="m">NT$${fmt(list.reduce((a,x)=>a+x.twd,0))}</span></div><ul class="exp">${list.map(x=>`<li><div style="min-width:0"><div><i class="dot" style="background:var(--c-${x.cat})"></i>${CATN[x.cat]||''} · ${esc(x.note||'未填')}</div><div class="small">${esc(N[x.payer]||'')} 付 · ${x.split==='both'?'兩人平分':'只算 '+esc(N[x.split]||'')}</div></div><div class="amt">₩${fmt(x.krw)}<br><span class="small">NT$${fmt(x.twd)}</span>${ST.ro?'':`<button class="del" data-del="${x.id}" aria-label="刪除">刪除</button>`}</div></li>`).join('')}</ul></div>`).join('')
+ (byDay.length?byDay.map(({d,list})=>`<div class="card" style="padding-block:8px"><div class="small" style="display:flex;justify-content:space-between;gap:8px"><span>${d.date}（${d.wd}）${esc(d.area)}</span><span class="m">NT$${fmt(list.reduce((a,x)=>a+x.twd,0))}</span></div><ul class="exp">${list.map(x=>`<li><div style="min-width:0"><div><i class="dot" style="background:var(--c-${x.cat})"></i>${CATN[x.cat]||''} · ${esc(x.note||'未填')}</div><div class="small">${esc(N[x.payer]||'')} 付 · ${x.split==='both'?'兩人平分':x.split==='custom'?esc(N.a)+' NT$'+fmt(x.sa)+'、'+esc(N.b)+' NT$'+fmt(x.sb):'只算 '+esc(N[x.split]||'')}</div></div><div class="amt">₩${fmt(x.krw)}<br><span class="small">NT$${fmt(x.twd)}</span>${ST.ro?'':`<div><button class="edbtn" data-edit="${x.id}">編輯</button><button class="del" data-del="${x.id}" aria-label="刪除">刪除</button></div>`}</div></li>`).join('')}</ul></div>`).join('')
  :'<div class="card"><span class="small">還沒有紀錄。每花一筆就記下來，上面的圓餅圖和「誰要給誰」會自動算。</span></div>')+
  '';
  $('#tab-money').innerHTML=h;
@@ -1214,10 +1223,18 @@ $('#tab-money').addEventListener('change',e=>{const b=S.bud;const id=e.target.id
 });
 $('#tab-money').addEventListener('submit',e=>{e.preventDefault();const r=S.bud.rate||38.5;
  const amt=+$('#eAmt').value;if(!amt)return;const cur=$('#eCur').value;const cat=(document.querySelector('input[name="eCat"]:checked')||{}).value||'shop';
- const o={id:'e'+uid(),ts:Date.now(),day:+$('#eDay').value,cat,payer:$('#ePayer').value,split:$('#eSplit').value,krw:Math.round(cur==='krw'?amt:amt*r),twd:Math.round((cur==='krw'?amt/r:amt)*100)/100,note:$('#eNote').value.trim()};
- addExp(o);toast('已記帳');$('#eAmt').value='';$('#eNote').value=''});
+ const toT=v=>Math.round((cur==='krw'?v/r:v)*100)/100;const split=$('#eSplit').value;
+ const o={id:EDIT?EDIT.id:'e'+uid(),ts:EDIT?EDIT.ts:Date.now(),day:+$('#eDay').value,cat,payer:$('#ePayer').value,split,cur,krw:Math.round(cur==='krw'?amt:amt*r),twd:toT(amt),note:$('#eNote').value.trim()};
+ if(split==='custom'){const a=+$('#eSa').value||0,b=+$('#eSb').value||0;if(Math.abs(a+b-amt)>0.5){toast('兩人的金額加起來要等於總金額');return}o.sa=toT(a);o.sb=toT(b)}
+ if(EDIT){EDIT=null;updExp(o);toast('已修改');keepScroll(renderMoney)}else{addExp(o);toast('已記帳');$('#eAmt').value='';$('#eNote').value='';$('#eSa').value='';$('#eSb').value=''}});
+$('#tab-money').addEventListener('input',e=>{const id=e.target.id;if(id!=='eSa'&&id!=='eSb'&&id!=='eAmt')return;
+ const tot=+$('#eAmt').value||0;if(!tot||$('#eSplit').value!=='custom')return;
+ if(id==='eSb'){$('#eSa').value=Math.max(0,Math.round((tot-(+$('#eSb').value||0))*100)/100)}else{$('#eSb').value=Math.max(0,Math.round((tot-(+$('#eSa').value||0))*100)/100)}});
+$('#tab-money').addEventListener('change',e=>{if(e.target.id==='eSplit')$('#eCust').hidden=e.target.value!=='custom'});
 $('#tab-money').addEventListener('click',e=>{
  const pw=e.target.closest('[data-pw]');if(pw){pieWho=pw.dataset.pw;keepScroll(renderMoney);return}
+ const ed=e.target.closest('[data-edit]');if(ed){const x=ST.exp.find(y=>y.id===ed.dataset.edit);if(x){EDIT=Object.assign({cur:'krw'},x);renderMoney();const hd=$('#expHd');if(hd)hd.scrollIntoView({behavior:'smooth',block:'start'})}return}
+ if(e.target.closest('[data-ecancel]')){EDIT=null;keepScroll(renderMoney);return}
  const d=e.target.closest('[data-del]');if(!d)return;
  if(d.dataset.armed){delExp(d.dataset.del);toast('已刪除')}else{d.dataset.armed=1;d.textContent='確定刪除？';setTimeout(()=>{if(d.isConnected){delete d.dataset.armed;d.textContent='刪除'}},3000)}});
 
