@@ -563,7 +563,9 @@ const R={
    {n:'Folder Highlight 弘大',q:'폴더 하이라이트 홍대',tip:'鞋',walk:'2 分'},
    {n:'Musinsa 弘大旗艦',q:'무신사 홍대',hot:1,opt:1,tip:'4 層樓旗艦，有退稅機',warn:'營業到 23:00',walk:'1 分'},
    {n:'Daiso 弘大 2 號店',q:'다이소 홍대2호점',hot:1,opt:1,tip:'7 層樓大創，美妝和生活小物便宜',walk:'約 3 分'},
-   {n:'KAKAO FRIENDS 弘大旗艦',q:'카카오프렌즈 홍대플래그십스토어',hot:1,opt:1,tip:'Ryan、春植周邊，頂樓有主題咖啡',walk:'約 3 分'}
+   {n:'KAKAO FRIENDS 弘大旗艦',q:'카카오프렌즈 홍대플래그십스토어',hot:1,opt:1,tip:'Ryan、春植周邊，頂樓有主題咖啡',walk:'約 3 分'},
+   {n:'Ready Young 藥局 弘大',q:'홍대 레디영약국',hot:1,tip:'藥局清單主力：2 層樓，Dr.Althea、PHARMAtique 是這家的',warn:'10:00–23:00',walk:'約 3 分'},
+   {n:'弘益藥局',q:'홍익약국 양화로18길',tip:'可當場退稅、中文店員；有 Dr.deep、PD3、痘痘藥膏',warn:'09:00–23:30，全年無休',walk:'約 3 分'}
   ],extra:''}],
  d2:[{t:'聖水上半場（站東側）',w:'聖水站 3、4 號出口出發',stops:[
    {n:'聖水站 Pure 藥局',q:'성수역 퓨어약국',tip:'保養品、保健品',warn:'10:00–23:00'},
@@ -583,7 +585,8 @@ const R={
    {n:'Point of View',q:'포인트오브뷰 성수',hot:1,tip:'3 層樓文具選物',warn:'12:00–20:00',walk:'1 分'},
    {n:'Same Dust 書店（Sseim）',q:'쎄임더스트',tip:'攝影書店',warn:'只開週二到週五 12:00–18:00',walk:'2 分'},
    {n:'Amuse 聖水旗艦',q:'어뮤즈 성수 플래그십',tip:'粉色系彩妝',warn:'11:00–20:30',walk:'1 分'},
-   {n:'Matin Kim 聖水店',q:'마뗑킴 성수',hot:1,opt:1,tip:'韓國人氣女裝，試穿一次限 3 件',warn:'11:30–20:00',walk:'往北約 8 分'}
+   {n:'Matin Kim 聖水店',q:'마뗑킴 성수',hot:1,opt:1,tip:'韓國人氣女裝，試穿一次限 3 件',warn:'11:30–20:00',walk:'往北約 8 分'},
+   {n:'Ready Young 藥局 延武場街',q:'성수 연무장길 레디영약국',tip:'延武場街西端，藥局清單可以在這裡補',warn:'10:00–23:00',walk:'約 8 分'}
   ],extra:''}],
  d3:[{t:'安國・北村・三清',w:'吃完 Onion 往北逛，中午剛好到北村吃菜包肉',stops:[
    {n:'Slowand 安國（Seullouaendeu）',q:'Slowand Anguk',tip:'服飾'},
@@ -601,7 +604,8 @@ const R={
   {t:'東大門夜逛',w:'汗蒸幕出來就近逛',stops:[
    {n:'APM Place',q:'APM PLACE 동대문',tip:'服飾批發商場，深夜才熱鬧'},
    {n:'Nyunyu 東大門',q:'뉴뉴 동대문',hot:1,tip:'飾品、包包、襪子，接近批發價',walk:'4 分'},
-   {n:'Mimi Line 東大門',q:'미미라인 동대문',tip:'飾品雜貨',walk:'3 分'}
+   {n:'Mimi Line 東大門',q:'미미라인 동대문',tip:'飾品雜貨',walk:'3 分'},
+   {n:'Ready Young 藥局 斗塔',q:'두타몰 레디영약국',tip:'斗塔 B2，晚上也開',warn:'10:30–24:00',walk:'約 5 分'}
   ]}],
  d4:[{t:'合井・西橋洞（由南往東）',w:'吃完 O 貝果屋直接出發',stops:[
    {n:'Coyseio 合井旗艦',q:'코이세이오 합정',hot:1,tip:'女裝· 雜貨里路 30'},
@@ -628,7 +632,8 @@ const R={
    {n:'emis 明洞',q:'이미스 명동',hot:1,tip:'2 層樓，帽子款式最多',warn:'營業到 23:00',walk:'2 分'},
    {n:'Juuneedu 明洞',q:'쥬니쥬 명동점',hot:1,tip:'人氣睡衣',walk:'1 分'},
    {n:'Mimi Line 明洞',q:'미미라인 명동점',tip:'2–4 樓飾品、服飾、保養品',walk:'4 分'},
-   {n:'Daiso 明洞站店',q:'다이소 명동역점',hot:1,tip:'12 層樓，明洞站 2 號出口旁',walk:'2 分'}
+   {n:'Daiso 明洞站店',q:'다이소 명동역점',hot:1,tip:'12 層樓，明洞站 2 號出口旁',walk:'2 分'},
+   {n:'Ready Young 藥局 明洞旗艦',q:'명동 플래그쉽 레디영약국',hot:1,tip:'你存的影片就是在這家拍的；明洞站 8 號出口',warn:'10:00–00:30',walk:'約 3 分'}
   ],extra:''},
   {t:'雲西站商圈',w:'飯店走路就到',stops:[
    {n:'樂天超市 永宗島店',q:'롯데마트 영종도점',hot:1,tip:'零食伴手禮最後補貨'},
@@ -1032,6 +1037,24 @@ if(!S.oy1){S.oy1=1;S.wish=S.wish||[];
  OY.forEach(([k,t,im])=>{if(S.wish.some(w=>w.id==='woy-'+k))return;const w={id:'woy-'+k,t,store:'Olive Young',day:0,done:false};if(im)w.img='oy/'+k+'.jpg';S.wish.push(w)});
  const n=S.wish.find(w=>/narka/i.test(w.t));if(n){n.store='Olive Young';if(!n.img)n.img='oy/narka.jpg'}else S.wish.push({id:'wnarka',t:'narka 瀏海控油梳（容易缺貨，看到就買）',store:'Olive Young',day:0,done:false,img:'oy/narka.jpg'});
  save()}
+if(!S.rx1){S.rx1=1;S.wish=S.wish||[];
+ const RX=[
+ ['althea','Dr.Althea 345 舒緩保濕噴霧（乳霜噴霧，丟包包隨時噴）','Ready Young 藥局'],
+ ['pharmatique','PHARMAtique 拉提亮眼眼膜（藥局限定）','Ready Young 藥局'],
+ ['deepspot','Dr.deep 點點霜（Texture Turnover Spot Cream，小顆粒、粉刺）','藥局'],
+ ['deepglow','Dr.deep 煥膚精華（Mineral Free-Peeling Glow Shot，敏感肌可用）','藥局'],
+ ['deeptoner','Dr.deep 身體代謝噴霧（Skin Toner）','藥局'],
+ ['pd3','Dr.Reju-All PD3 PDRN 煥顏修復霜（評價兩極，先局部試用）','藥局'],
+ ['juvcream','RXme Juvekle 喬雅可澎潤乳霜','藥局'],
+ ['juvshot','RXme Juvekle Max Shot 喬雅可微針精華（跟乳霜搭配用）','藥局'],
+ ['newvein','Newvein 뉴베인 下肢浮腫口服液（各家價差大，可以比價）','藥局'],
+ ['anon','東亞製藥 Anon 애크논 痘痘藥膏（紅腫痘）','藥局'],
+ ['aclean','東亞製藥 Aclean 애크린 水楊酸凝膠（粉刺、小顆粒）','藥局'],
+ ['noscarna','東亞製藥 Noscarna 노스카나 疤痕凝膠（對痘印效果有限）','藥局']
+];
+ RX.forEach(([k,t,st])=>{if(S.wish.some(w=>w.id==='wrx-'+k))return;S.wish.push({id:'wrx-'+k,t,store:st,day:0,done:false,img:'oy/'+k+'.jpg'})});
+ save()}
+
 
 function prepGroups(){if(!S.prep){S.prep=CHK.map(([g,l],gi)=>({id:'g'+gi,name:g,items:l.map((t,i)=>({id:'i'+gi+'_'+i,t,done:!!(S.chk&&S.chk[gi+'-'+i])}))}))}return S.prep}
 let editing=null;
