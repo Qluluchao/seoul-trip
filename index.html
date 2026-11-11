@@ -1054,6 +1054,11 @@ if(!S.rx1){S.rx1=1;S.wish=S.wish||[];
 ];
  RX.forEach(([k,t,st])=>{if(S.wish.some(w=>w.id==='wrx-'+k))return;S.wish.push({id:'wrx-'+k,t,store:st,day:0,done:false,img:'oy/'+k+'.jpg'})});
  save()}
+if(!S.img2){S.img2=1;S.wish=S.wish||[];
+ ['celimax','dermalogica','bohlip','bohmist','fillimilli'].forEach(k=>{const w=S.wish.find(x=>x.id==='woy-'+k);if(w&&!w.img)w.img='oy/'+k+'.jpg'});
+ if(!S.wish.some(w=>w.id==='woy-etude'))S.wish.push({id:'woy-etude',t:'ETUDE Reborn Maker 修容棒（先勾鼻影線條再用粉暈開）',store:'Olive Young',day:0,done:false,img:'oy/etude.jpg'});
+ save()}
+
 
 
 function prepGroups(){if(!S.prep){S.prep=CHK.map(([g,l],gi)=>({id:'g'+gi,name:g,items:l.map((t,i)=>({id:'i'+gi+'_'+i,t,done:!!(S.chk&&S.chk[gi+'-'+i])}))}))}return S.prep}
