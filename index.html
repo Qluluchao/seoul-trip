@@ -998,6 +998,41 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-marea]');i
 /* ---------- pack: editable checklist kept on this phone ---------- */
 if(!S.shipv2){S.shipv2=1;(S.prep||[]).forEach(g=>g.items.forEach(it=>{if(it.t.includes('韓好運'))it.t='IG 私訊弘大站物流，確認 12/6（日）幾點開'}));
  S.wish=S.wish||[];if(!S.wish.some(w=>/narka/i.test(w.t)))S.wish.push({id:'wnarka',t:'narka 瀏海控油梳（Fresh Sebum Hair Mascara）',store:'Olive Young（容易缺貨，看到就買）',day:0,done:false});save()}
+if(!S.oy1){S.oy1=1;S.wish=S.wish||[];
+ const OY=[
+ ['celimax','celimax 維他命A醛微針精華霜（緊緻毛孔、撫平細紋）',0],
+ ['dermalogica','dermalogica 亮顏素（粉刺吸塵器）',0],
+ ['bohlip','BOH 豐盈潤唇膏（改善脫屑）',0],
+ ['biodance','Biodance PDRN 面膜 紫款（魚子精華，台灣難買）',1],
+ ['drg','Dr.G 泛紅修復積雪草舒緩水分霜',1],
+ ['bohmist','BOH 積雪草乳霜噴霧（舒緩泛紅）',0],
+ ['careplus','CARE PLUS 隱形修護痘痘貼',0],
+ ['fillimilli','fillimilli 臉部冰鎮消腫按摩儀',0],
+ ['bringgreen','BRINGGREEN 竹子玻尿酸護唇精華 雙入（睡前厚敷）',1],
+ ['madeca','Mediheal 積雪草 Madecassoside 面膜',1],
+ ['rosepdrn','Mediheal ROSE PDRN 面膜',1],
+ ['melamate','멜라메이트 褪黑素軟糖',1],
+ ['footcream','MEDIPEEL EGF 去角質足霜',1],
+ ['abib','Abib 弱酸性面膜（透明包裝系列）',1],
+ ['toktok','coringco TOKTOK 免膠睫毛',1],
+ ['dofree','Marns Do.Free 隱形胸貼',1],
+ ['near','NE:AR 藤黃果消水腫錠（很多口味）',1],
+ ['pdrncap','광채탄력 PDRN 膠囊霜（妝前保濕）',1],
+ ['anua','Anua 魚腥草控油卸妝油 雙入',1],
+ ['yucc','私密洗（yucc_1023 影片那款）',1],
+ ['abouttone','About Tone 霧面粉底液 色號 19（混合～油肌）',1],
+ ['ofra','OFRA 打亮 Pillow talk／Glazed Donut',1],
+ ['tcfs','Too cool for school 修容粉 FOG ASH',1],
+ ['holika','Holika Holika 單色眼影 WOODSMOKE、MOLTEN AMERICANO、PINKID',1],
+ ['clio','CLIO Air 眼影盤 03',1],
+ ['espoir','espoir Make Up Bonding 妝前乳',1],
+ ['bbia','BBIA 眼線膠筆 11／20／23／24（或 TCFS 02）',1],
+ ['luna','LUNA 遮瑕提亮盤',1]
+];
+ OY.forEach(([k,t,im])=>{if(S.wish.some(w=>w.id==='woy-'+k))return;const w={id:'woy-'+k,t,store:'Olive Young',day:0,done:false};if(im)w.img='oy/'+k+'.jpg';S.wish.push(w)});
+ const n=S.wish.find(w=>/narka/i.test(w.t));if(n){n.store='Olive Young';if(!n.img)n.img='oy/narka.jpg'}else S.wish.push({id:'wnarka',t:'narka 瀏海控油梳（容易缺貨，看到就買）',store:'Olive Young',day:0,done:false,img:'oy/narka.jpg'});
+ save()}
+
 function prepGroups(){if(!S.prep){S.prep=CHK.map(([g,l],gi)=>({id:'g'+gi,name:g,items:l.map((t,i)=>({id:'i'+gi+'_'+i,t,done:!!(S.chk&&S.chk[gi+'-'+i])}))}))}return S.prep}
 let editing=null;
 function renderPack(){
