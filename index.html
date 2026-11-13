@@ -594,13 +594,24 @@ const R={
   ],extra:''}],
  d3:[{t:'安國・北村・三清',w:'吃完 Onion 往北逛，中午剛好到北村吃菜包肉',stops:[
    {n:'Slowand 安國（Seullouaendeu）',q:'Slowand Anguk',tip:'服飾'},
-   {n:'OIMU 北村（Oimyu）',q:'오이뮤 북촌',hot:1,tip:'韓國設計文具、香氛',walk:'5 分'},
-   {n:'Kuereun 三清 Signature',q:'Samcheong-dong shoes Kuereun',tip:'鞋',walk:'8 分'}
+   {n:'Chom Chom Seoul',q:'촘촘 서울 북촌로5길',tip:'韓國傳統繩結概念的甜點禮物店，空間很美',warn:'10:00–19:00',walk:'5 分'},
+   {n:'OIMU 北村（Oimyu）',q:'오이뮤 북촌',hot:1,tip:'把韓國文化做成現代生活物件，可退稅',walk:'5 分'},
+   {n:'Kuereun 三清 Signature',q:'Samcheong-dong shoes Kuereun',tip:'鞋',walk:'8 分'},
+   {n:'Ahwon 阿園工房',q:'아원공방',tip:'金工、首飾、生活器皿，樓上有小藝廊',warn:'位置以地圖為準',walk:'約 5 分'},
+   {n:'MMCA 首爾館 Design Shop',q:'국립현대미술관 서울관 아트샵',hot:1,tip:'藝術周邊、設計小物；走到底就是景福宮東門',walk:'約 5 分'}
   ],extra:''},
-  {t:'西村',w:'景福宮西側出來就到',stops:[
-   {n:'Papieo Frost（西村）',q:'Papier Frost Seochon',tip:'文具書店'},
-   {n:'Areu Kiseuto（孝子洞）',q:'Hyoja-dong Seochon shop',tip:'生活雜貨',walk:'5 分'}
-  ],extra:''},
+  {t:'西村',w:'景福宮站 2 號出口，沿自下門路往北再繞回來',stops:[
+   {n:'MYCHOICE 西村',q:'마이초이스 서촌',hot:1,tip:'家具、家飾、設計物件，地下是家具'},
+   {n:'MSK SHOP／NTL Gallery',q:'므스크샵 서촌',tip:'服飾、生活裝飾、藝廊同一空間',walk:'約 3 分'},
+   {n:'ofr. Séoul',q:'오에프알 서울',hot:1,tip:'藝術書、攝影、雜誌；1 樓',walk:'約 2 分'},
+   {n:'Comptoir de Mirabelle',q:'꽁뜨와드 미라벨',tip:'同一棟樓上；國際品牌器皿、布品、飾品',walk:'同棟'},
+   {n:'Papieo Frost（西村）',q:'Papier Frost Seochon',tip:'文具書店',walk:'約 3 分'},
+   {n:'ALLWRITE 西村',q:'올라이트 서촌',tip:'給喜歡紀錄的人的文具店，筆記本紙品',warn:'營業時間常變，先看 IG',walk:'約 5 分'},
+   {n:'MAKEFOLIO 西村',q:'메이크폴리오 서촌',tip:'器皿、香氛、手工藝',walk:'約 3 分'},
+   {n:'Little Temple Design Shop',q:'리틀템포 디자인 서촌',tip:'可愛幽默的文具和生活小物，在仁王山下巷子',walk:'約 8 分'},
+   {n:'Red Mangchi',q:'레드망치',tip:'色彩很強的居家選物，地毯、布品',warn:'位置以地圖為準',walk:'約 5 分'},
+   {n:'Areu Kiseuto（孝子洞）',q:'Hyoja-dong Seochon shop',tip:'生活雜貨',walk:'約 5 分'}
+  ],extra:'很多小店週一公休，你們去的週五都有開'},
   {t:'益善洞 → 西巡邏路',w:'一路逛到西巡邏路坐下來喝咖啡',stops:[
    {n:'益善洞韓屋街',q:'익선동 한옥거리',hot:1,tip:'鹽可頌、韓屋咖啡、小店'},
    {n:'西巡邏路',q:'서순라길',tip:'沿宗廟石牆的韓屋咖啡街',walk:'8 分'}
@@ -683,7 +694,7 @@ const D=[
   {t:'19:45',k:'move',ti:'回弘大',d:'2 號線 · 約 40 分',p:'hongik'},
   {t:'20:45',k:'food',ti:'宵夜叫外送',slot:'d2late',d:''}
  ]},
-{id:3,title:'韓屋與蒸氣浴 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',
+{id:3,title:'韓屋與蒸氣浴 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',key:'d3v3',
  slots:[{k:'d3bf',l:'早餐'},{k:'d3lun',l:'午餐'},{k:'d3cafe',l:'咖啡廳'},{k:'d3din',l:'晚餐'},{k:'d3late',l:'宵夜'}],
  food:[['早餐',['f22','f24','f21']],['午餐',['f20','f17','f18','g13','f19','f15','f16']],['咖啡廳',['f26','f22','g14','g15','g16','g17','f24','f21','f23','f25']],['晚餐',['f27','g18','k2','f29','f30','f31']],['宵夜',['g19','f28','k2']]],
  tl:[
@@ -691,14 +702,14 @@ const D=[
   {t:'09:30',k:'food',ti:'早餐',slot:'d3bf',d:''},
   {t:'10:30',k:'shop',ti:'安國・北村・三清逛街',d:'',jump:'route',r:0},
   {t:'12:00',k:'food',ti:'午餐',slot:'d3lun',d:''},
-  {t:'13:15',k:'sight',ti:'景福宮（可跳過）',d:'₩3,000 · 14:00 守門將交接',p:'gbg'},
-  {t:'14:30',k:'shop',ti:'西村小店',d:'',jump:'route',r:1},
-  {t:'15:15',k:'move',ti:'景福宮站 → 安國站',d:'3 號線 · 1 站，走到益善洞',p:'ikseon'},
-  {t:'15:30',k:'shop',ti:'益善洞 → 西巡邏路',d:'',jump:'route',r:2},
-  {t:'16:30',k:'cafe',ti:'西巡邏路咖啡廳',slot:'d3cafe',d:''},
-  {t:'17:45',k:'move',ti:'鍾路 3 街 → 新堂站',d:'5→2 號線 · 約 15 分',p:'sindang'},
-  {t:'18:15',k:'food',ti:'晚餐',slot:'d3din',d:''},
-  {t:'19:30',k:'sight',ti:'Spa Rex 東大門汗蒸幕',d:'東大門歷史文化公園站 14 號出口 · ₩14,000（20:00 後 ₩16,000）',p:'sparex'},
+  {t:'13:00',k:'shop',ti:'景福宮（可跳過）',d:'景福宮 ₩3,000 · 14:00 守門將交接',p:'gbg'},
+  {t:'14:00',k:'shop',ti:'西村小店',d:'',jump:'route',r:1},
+  {t:'16:15',k:'move',ti:'景福宮站 → 安國站',d:'3 號線 · 1 站，走到益善洞',p:'ikseon'},
+  {t:'16:30',k:'shop',ti:'益善洞 → 西巡邏路',d:'',jump:'route',r:2},
+  {t:'17:15',k:'cafe',ti:'西巡邏路咖啡廳',slot:'d3cafe',d:''},
+  {t:'18:15',k:'move',ti:'鍾路 3 街 → 新堂站',d:'5→2 號線 · 約 15 分',p:'sindang'},
+  {t:'18:45',k:'food',ti:'晚餐',slot:'d3din',d:''},
+  {t:'19:45',k:'sight',ti:'Spa Rex 東大門汗蒸幕',d:'東大門歷史文化公園站 14 號出口 · ₩14,000（20:00 後 ₩16,000）',p:'sparex'},
   {t:'21:30',k:'shop',ti:'東大門夜逛',d:'',jump:'route',r:3},
   {t:'23:00',k:'food',ti:'宵夜',slot:'d3late',d:''},
   {t:'00:00',k:'move',ti:'計程車回弘大',d:'約 25 分 · 約 ₩20,000',p:'anook'}
