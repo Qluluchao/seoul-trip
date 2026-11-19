@@ -352,6 +352,9 @@ h3 .ibtn{margin-left:auto;font-size:.95rem}
 .mcard .mhd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .mname{font-weight:700;color:var(--ink);font-size:1rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .mtopn{background:var(--brown);color:var(--paper)}
+.mred{background:var(--warn);color:#fff}
+.mflags summary{cursor:pointer;font-size:.92rem;line-height:1.6}
+.mflags ol{margin:8px 0 0;padding-left:1.4em;font-size:.88rem;line-height:1.7}
 .mrec{margin:10px 0 4px;padding:8px 10px;border-radius:10px;background:var(--chip);font-size:.9rem;line-height:1.5}
 .mrec span{display:block;font-size:.72rem;color:var(--muted);letter-spacing:.08em}
 .mtop{border:1.5px solid var(--latte)}
@@ -969,13 +972,18 @@ function rerender(){if(curTab==='money')keepScroll(renderMoney);else if(curTab==
 /* ---------- 醫美診所比較 ---------- */
 const CL=[
  // sun: y=週日有開, q=要先問, n=週日公休
+ {red:1,a:'明洞',sun:'y',n:'VLIN 明洞',ko:'블린의원 명동',h:'365 天都開',rec:'電波、音波、ONDA 等拉提（儀器齊全）',good:'拉提、雷射',pro:'紅榜：院長全程親做、儀器齊全、價格公開',con:'名單外的評價資料少，營業時間先 LINE 確認'},
+ {red:1,a:'弘大',sun:'y',n:'Selena 弘大',ko:'홍대셀레나의원',h:'每天預約制（양화로 162，9 樓）',rec:'肉毒、玻尿酸、皮膚管理',good:'針劑、皮膚管理',pro:'紅榜：300 項價格全公開、週末開；강남언니 8.9 分、1,500 多則評價；弘大站旁',con:'韓國客人多、偏平價走量，熱門時段要早約'},
+ {red:1,a:'其他',sun:'q',n:'Heritique 光化門',ko:'에리티크의원 광화문',h:'12/4 去景福宮那天會經過附近',rec:'鳳凰電波 Shrink',good:'電波',pro:'紅榜：雙院長、皮膚科專門醫，鳳凰電波 Key Doctor（4.9 分）',con:'不在 12/6 路線上；週日營業未確認'},
+ {red:1,a:'其他',sun:'q',n:'newlline 聖水',ko:'뉴라인의원 성수',h:'12/3 聖水那天可以順路',rec:'音波 Oligio',good:'音波拉提',pro:'紅榜：在地 10 多年，Oligio Key Doctor 親打',con:'不在 12/6 路線上；週日營業未確認'},
+ {red:1,a:'其他',sun:'q',n:'shinederma 東大門',ko:'샤인더마의원 동대문',h:'12/4 晚上在東大門',rec:'皮膚管理、注射',good:'皮膚管理',pro:'紅榜：全女醫師、院長親施術、案例不修圖',con:'不在 12/6 路線上；營業時間未確認'},
  {a:'弘大',sun:'y',n:'Beauty Blossom',ko:'뷰티블라썸의원',h:'週末 10:00–16:30',rec:'ONDA、電波 Thermage FLX、音波 Ulthera Prime、皮膚管理',good:'拉提，三種熱能拉提都有',pro:'8 位醫師、VIP 包廂、專人陪同、非流水線',con:'獨立評價少，多是業配；價格可能偏高',top:1},
  {a:'弘大',sun:'y',n:'DayBeau 弘大',ko:'데이뷰의원 마포홍대점',h:'10:00–20:00',rec:'電波、韓版超聲刀、唇部玻尿酸、皮秒',good:'拉提、雷射',pro:'VIP 包廂諮詢、不推銷、恢復快、可掃 QR 驗儀器',con:'詳細評價少；ONDA 有沒有要先問',top:2},
  {a:'弘大',sun:'y',n:'麗芬聚 PPEUM 弘大',ko:'쁨의원 홍대점',h:'週末最後報到 16:00',rec:'水光、麗珠蘭、肉毒、雷射除毛',good:'基礎項目、皮膚管理',pro:'中文翻譯全程陪同、中文 LINE、出問題處理快、不硬推',con:'流水線、節奏快'},
  {a:'弘大',sun:'y',n:'麗延長',ko:'리엔장의원 홍대',h:'11:00–17:00',rec:'腋下肉毒、水光',good:'便宜的基礎針劑',pro:'腋下肉毒便宜有效、水光不痛、有台灣諮詢師',con:'現場才報價、流水線、推銷強，有人從音波被推成 Ulthera 大超預算'},
- {a:'弘大',sun:'y',n:'本思 Vands',ko:'밴스의원 홍대점',h:'09:00–18:00',rec:'肉毒、水光',good:'針劑、除毛',pro:'LINE 預約、術後會追蹤',con:'空間小、跟醫生交流少、網上只有活動價'},
+ {red:1,a:'弘大',sun:'y',n:'本思 Vands',ko:'밴스의원 홍대점',h:'09:00–18:00',rec:'肉毒、水光',good:'針劑、除毛',pro:'LINE 預約、術後會追蹤',con:'空間小、跟醫生交流少、網上只有活動價'},
  {a:'弘大',sun:'y',n:'ID Clinic 弘大',ko:'아이디의원 홍대',h:'週末 10:30–17:00',rec:'Ulthera、肉毒',good:'音波拉提',pro:'價格合理、可寄放行李',con:'評價資料少'},
- {a:'明洞',sun:'y',n:'RE:BERRY',ko:'리베리의원 명동',h:'週末 10:30–19:00',rec:'ONDA、Ulthera、Potenza、Juvelook',good:'拉提、膠原',pro:'醫師帶著做、獨立包廂、語言多',con:'有人術後泛紅緊繃；沒公開價格',top:3},
+ {red:1,a:'明洞',sun:'y',n:'RE:BERRY',ko:'리베리의원 명동',h:'週末 10:30–19:00',rec:'ONDA、Ulthera、Potenza、Juvelook',good:'拉提、膠原',pro:'醫師帶著做、獨立包廂、語言多',con:'有人術後泛紅緊繃；沒公開價格',top:3},
  {a:'明洞',sun:'y',n:'Lijin',ko:'리진의원 명동',h:'週末 09:30–19:30',rec:'Ulthera、電波 Thermage、溶脂針',good:'電音波',pro:'院長 15 年以上經驗、獨立包廂、價格透明',con:'只有平台評價'},
  {a:'明洞',sun:'y',n:'DayBeau 明洞',ko:'데이뷰의원 명동',h:'10:00–20:00（2 號店到 19:00）',rec:'XERF、Sofwave、Ulthera、水光',good:'拉提',pro:'諮詢和施打同一間包廂、推銷少；Creatrip 套餐 ₩490,000',con:'資訊多來自預約平台'},
  {a:'明洞',sun:'y',n:'麗芬聚 PPEUM 明洞',ko:'쁨의원 명동',h:'10:30–19:00',rec:'水光、除毛、肉毒',good:'基礎項目',pro:'空間大又乾淨、可寄放行李、說明仔細',con:'國外一星評價：被推昂貴套餐、沒給明細先刷卡；翻譯會卡'},
@@ -985,12 +993,12 @@ const CL=[
  {a:'弘大',sun:'q',n:'思麗本 S Reborn',ko:'S Reborn Clinic 홍대',h:'平日 10:30–19:30・週六 10:00–16:00・週日沒列出',rec:'皮秒、黃金微針、肉毒、基礎皮膚管理',good:'入門項目、拉提',pro:'Threads 說價格透明、適合小資和第一次做；Creatrip 4.9 分；8 號出口前',con:'人多要預約；官網沒公開價格；Dcard「S麗X」踩雷文很像這間'},
  {a:'弘大',sun:'q',n:'Dr. Petit',ko:'닥터쁘띠의원 홍대',h:'兩個來源說法不同',rec:'肉毒、玻尿酸、線雕',good:'針劑',pro:'院長從諮詢做到施打',con:'營業時間要先問'},
  {a:'弘大',sun:'q',n:'nBOM',ko:'엔봄의원 홍대',h:'週末 10:00–16:00（週三休）',rec:'Shrink 音波、Potenza',good:'毛孔、痘疤',pro:'3D 臉部分析、適合新手',con:'評價資料少'},
- {a:'弘大',sun:'q',n:'羅薇 Lovae',ko:'로바에의원 홍대',h:'週日未知',rec:'水光、皮秒、LDM、電波',good:'皮膚管理',pro:'報價透明、推銷少、中文好溝通',con:'價格中上、週末要等很久'},
+ {red:1,a:'弘大',sun:'q',n:'羅薇 Lovae',ko:'로바에의원 홍대',h:'週日未知',rec:'水光、皮秒、LDM、電波',good:'皮膚管理',pro:'報價透明、推銷少、中文好溝通',con:'價格中上、週末要等很久'},
  {a:'弘大',sun:'q',n:'奧儷顏 ALL LINE',ko:'올라인의원 홍대',h:'週日未知',rec:'肉毒、法令紋玻尿酸、眼下麗珠蘭',good:'針劑',pro:'舒服、人不多',con:'要提早預約'},
  {a:'明洞',sun:'q',n:'雅秘珠 Abijou 明洞',ko:'아비쥬의원 명동점',h:'週日未知',rec:'電波、皮膚管理',good:'便宜項目',pro:'便宜、不太要等、不推銷、可寄放行李',con:'人很多'},
  {a:'明洞',sun:'q',n:'丹雅',ko:'명동 단아',h:'週日未知',rec:'肉毒、唇部玻尿酸',good:'針劑',pro:'Threads 評價好',con:'Dcard 原 PO 說像流水線、沒問成因就推黃金微針'},
  {a:'弘大',sun:'n',n:'吳微儷珠 Ohvelyjoo',ko:'오블리주의원 홍대',h:'週六 10:00–17:00',rec:'肉毒、電波、玻尿酸',good:'針劑、電波',pro:'台灣人最推、不亂推、施打能量強',con:'週日公休'},
- {a:'弘大',sun:'n',n:'Kate 李源祥',ko:'케이트의원 홍대',h:'週六 10:00–16:30',rec:'線雕、Ulthera、玻尿酸',good:'線雕、拉提',pro:'院長親自打、韓國評價網 9.1 分',con:'週日公休；院長時段要提早 1–2 週約'},
+ {red:1,a:'弘大',sun:'n',n:'Kate 李源祥',ko:'케이트의원 홍대',h:'週六 10:00–16:30',rec:'線雕、Ulthera、玻尿酸',good:'線雕、拉提',pro:'院長親自打、韓國評價網 9.1 分',con:'週日公休；院長時段要提早 1–2 週約'},
  {a:'弘大',sun:'n',n:'雅秘珠 Abijou 弘大',ko:'아비쥬의원 홍대점',h:'週六有開',rec:'雷射、肉毒',good:'便宜項目',pro:'便宜',con:'很趕、會推銷'},
  {a:'明洞',sun:'n',n:'Plan;S',ko:'플랜에스의원 명동',h:'週六 10:30–16:00',rec:'鈦提升、溶脂針',good:'鈦提升',pro:'鈦提升較便宜',con:'週日公休'},
  {a:'明洞',sun:'n',n:'Lamine',ko:'라미네의원 명동',h:'週六 10:00–16:00',rec:'Potenza、拉提',good:'微針',pro:'院長親自做、含卸妝',con:'週日公休'}
@@ -998,16 +1006,17 @@ const CL=[
 let medArea='全部';
 function renderMed(){
  const SUN={y:['✅ 週日有開（12/6 可排）','ok'],q:['⚠️ 週日要先問','q'],n:['❌ 週日公休','no']};
- const list=CL.filter(c=>medArea==='全部'||c.a===medArea);
+ const list=CL.filter(c=>medArea==='全部'||(medArea==='紅榜'?c.red:c.a===medArea));
  let h=`<h2 class="sec">醫美診所比較</h2><p class="sub">12/6 是星期日，先看「週日有開」那組。資料整理自 Threads、Dcard、預約平台和韓國診所網站。</p>
  <div class="card mtop"><h4>電音波＋ONDA＋皮膚管理怎麼選</h4><ol class="mrank">
   <li><b>弘大：Beauty Blossom</b>，三種熱能拉提都有</li>
   <li><b>弘大備選：DayBeau 弘大</b>，週日開到 20:00，ONDA 先問</li>
   <li><b>明洞（A 版）：RE:BERRY 或 Lijin</b>，做完直接逛明洞</li></ol>
   <div class="small">三種都是熱能拉提，同一天全做負擔大，讓醫師決定怎麼搭。電波看探頭拆封、音波問清楚發數。當天不要進汗蒸幕。</div></div>
- <div class="filter" role="group" aria-label="地區">${['全部','弘大','明洞'].map(a=>`<button data-marea="${a}" aria-pressed="${a===medArea}">${a}</button>`).join('')}</div>`;
+ <div class="filter" role="group" aria-label="地區">${['全部','紅榜','弘大','明洞','其他'].map(a=>`<button data-marea="${a}" aria-pressed="${a===medArea}">${a}</button>`).join('')}</div>`;
+ h+=`<details class="card mflags"><summary><b>避坑 20 條</b>：遇到任何一條，先停下來問清楚</summary><ol>${['報價不含後續，躺上床才升級','諮詢報低價，結帳多一筆麻醉費','掛名院長預約，現場換成別人','面診 5 分鐘就開單，不問膚況','硬推「今天限定」套組','探頭發數不說清楚、不給看包裝','舊款儀器冒充新一代','翻譯只到報價為止，施術時不見人','取消規則寫小字，訂金全扣','術前不談恢復期，出事說正常反應','同一療程，本地客和外國客兩張價目表','要加購修復療程才給術後護理','諮詢師面診，院長最後才出現','一次預付套組，期限寫很短','打到一半說劑量不夠要加錢','術後回診另收費，事前不講','案例照全修圖，看原圖就推託','麻醉、消毒、耗材一項一項加','說院長親打，實際是助理操作','刷卡加手續費、只收現金不開收據'].map(t=>`<li>${t}</li>`).join('')}</ol></details>`;
  ['y','q','n'].forEach(k=>{const g=list.filter(c=>c.sun===k);if(!g.length)return;
-  h+=`<h3>${SUN[k][0]}</h3>`+g.map(c=>`<div class="card mcard"><div class="mhd"><div><div class="mname">${c.top?`<span class="tag mtopn">推薦 ${c.top}</span>`:''}${esc(c.n)}</div><div class="small"><span class="tag">${c.a}</span> ${esc(c.h)}</div></div>${navBtns(c.n,c.ko)}</div>
+  h+=`<h3>${SUN[k][0]}</h3>`+g.map(c=>`<div class="card mcard"><div class="mhd"><div><div class="mname">${c.top?`<span class="tag mtopn">推薦 ${c.top}</span>`:''}${c.red?'<span class="tag mred">紅榜</span>':''}${esc(c.n)}</div><div class="small"><span class="tag">${c.a}</span> ${esc(c.h)}</div></div>${navBtns(c.n,c.ko)}</div>
    <div class="mrec"><span>推薦施打</span>${esc(c.rec)}</div>
    <dl class="kv"><dt>擅長</dt><dd>${esc(c.good)}</dd><dt>優點</dt><dd>${esc(c.pro)}</dd><dt>缺點</dt><dd>${esc(c.con)}</dd></dl></div>`).join('');
  });
