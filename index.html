@@ -142,6 +142,7 @@ h3 .k{font-size:.7rem;letter-spacing:.14em;color:var(--muted);font-weight:500}
 .stop{display:grid;grid-template-columns:30px 1fr auto;gap:0 12px;align-items:start}
 .stop .num{width:30px;height:30px;border-radius:50%;background:var(--brown);color:var(--onaccent);font-family:var(--font-mono);font-weight:700;font-size:.82rem;display:grid;place-items:center}
 .stop.hot .num{background:var(--sky);color:var(--onsky)}
+.edb{margin-left:6px;font-size:.7rem;padding:1px 7px;border-radius:999px;background:var(--brown);color:var(--paper);vertical-align:middle}
 .stop.done .num{background:var(--line);color:var(--muted)}
 .stop.sep .num{background:var(--chip);color:var(--muted)}
 .stop .body{min-width:0;padding-top:4px}
@@ -572,7 +573,8 @@ const R={
    {n:'Daiso 弘大 2 號店',q:'다이소 홍대2호점',hot:1,opt:1,tip:'7 層樓大創，美妝和生活小物便宜',walk:'約 3 分'},
    {n:'KAKAO FRIENDS 弘大旗艦',q:'카카오프렌즈 홍대플래그십스토어',hot:1,opt:1,tip:'Ryan、春植周邊，頂樓有主題咖啡',walk:'約 3 分'},
    {n:'Ready Young 藥局 弘大',q:'홍대 레디영약국',hot:1,tip:'藥局清單主力：2 層樓，Dr.Althea、PHARMAtique 是這家的',warn:'10:00–23:00',walk:'約 3 分'},
-   {n:'弘益藥局',q:'홍익약국 양화로18길',tip:'可當場退稅、中文店員；有 Dr.deep、PD3、痘痘藥膏',warn:'09:00–23:30，全年無休',walk:'約 3 分'}
+   {n:'弘益藥局',q:'홍익약국 양화로18길',tip:'可當場退稅、中文店員；有 Dr.deep、PD3、痘痘藥膏',warn:'09:00–23:30，全年無休',walk:'約 3 分'},
+   {n:'Ediya Coffee 弘大',q:'이디야커피 홍대',ed:1,tip:'拿小卡｜弘大站附近有好幾間，點地圖挑最近的',warn:'先確認這間有參加活動、小卡還有沒有'}
   ],extra:''}],
  d2:[{t:'聖水上半場（站東側）',w:'聖水站 3、4 號出口出發',stops:[
    {n:'聖水站 Pure 藥局',q:'성수역 퓨어약국',tip:'保養品、保健品',warn:'10:00–23:00'},
@@ -593,7 +595,8 @@ const R={
    {n:'Same Dust 書店（Sseim）',q:'쎄임더스트',tip:'攝影書店',warn:'只開週二到週五 12:00–18:00',walk:'2 分'},
    {n:'Amuse 聖水旗艦',q:'어뮤즈 성수 플래그십',tip:'粉色系彩妝',warn:'11:00–20:30',walk:'1 分'},
    {n:'Matin Kim 聖水店',q:'마뗑킴 성수',hot:1,opt:1,tip:'韓國人氣女裝，試穿一次限 3 件',warn:'11:30–20:00',walk:'往北約 8 分'},
-   {n:'Ready Young 藥局 延武場街',q:'성수 연무장길 레디영약국',tip:'延武場街西端，藥局清單可以在這裡補',warn:'10:00–23:00',walk:'約 8 分'}
+   {n:'Ready Young 藥局 延武場街',q:'성수 연무장길 레디영약국',tip:'延武場街西端，藥局清單可以在這裡補',warn:'10:00–23:00',walk:'約 8 分'},
+   {n:'Ediya Coffee 聖水',q:'이디야커피 성수',ed:1,tip:'拿小卡｜聖水站附近，點地圖挑最近的',warn:'先確認這間有參加活動、小卡還有沒有'}
   ],extra:''}],
  d3:[{t:'安國・北村・三清',w:'吃完 Onion 往北逛，中午剛好到北村吃菜包肉',stops:[
    {n:'Slowand 安國（Seullouaendeu）',q:'Slowand Anguk',tip:'服飾'},
@@ -613,7 +616,8 @@ const R={
    {n:'MAKEFOLIO 西村',q:'메이크폴리오 서촌',tip:'器皿、香氛、手工藝',walk:'約 3 分'},
    {n:'Little Temple Design Shop',q:'리틀템포 디자인 서촌',tip:'可愛幽默的文具和生活小物，在仁王山下巷子',walk:'約 8 分'},
    {n:'Red Mangchi',q:'레드망치',tip:'色彩很強的居家選物，地毯、布品',warn:'位置以地圖為準',walk:'約 5 分'},
-   {n:'Areu Kiseuto（孝子洞）',q:'Hyoja-dong Seochon shop',tip:'生活雜貨',walk:'約 5 分'}
+   {n:'Areu Kiseuto（孝子洞）',q:'Hyoja-dong Seochon shop',tip:'生活雜貨',walk:'約 5 分'},
+   {n:'Ediya Coffee 景福宮／西村',q:'이디야커피 경복궁',ed:1,tip:'拿小卡｜景福宮站附近，點地圖挑最近的',warn:'先確認這間有參加活動、小卡還有沒有'}
   ],extra:'很多小店週一公休，你們去的週五都有開'},
   {t:'益善洞 → 西巡邏路',w:'一路逛到西巡邏路坐下來喝咖啡',stops:[
    {n:'益善洞韓屋街',q:'익선동 한옥거리',hot:1,tip:'鹽可頌、韓屋咖啡、小店'},
@@ -623,7 +627,8 @@ const R={
    {n:'APM Place',q:'APM PLACE 동대문',tip:'服飾批發商場，深夜才熱鬧'},
    {n:'Nyunyu 東大門',q:'뉴뉴 동대문',hot:1,tip:'飾品、包包、襪子，接近批發價',walk:'4 分'},
    {n:'Mimi Line 東大門',q:'미미라인 동대문',tip:'飾品雜貨',walk:'3 分'},
-   {n:'Ready Young 藥局 斗塔',q:'두타몰 레디영약국',tip:'斗塔 B2，晚上也開',warn:'10:30–24:00',walk:'約 5 分'}
+   {n:'Ready Young 藥局 斗塔',q:'두타몰 레디영약국',tip:'斗塔 B2，晚上也開',warn:'10:30–24:00',walk:'約 5 分'},
+   {n:'Ediya Coffee 東大門',q:'이디야커피 동대문',ed:1,tip:'拿小卡｜東大門站附近；晚上關得早，要趁汗蒸幕前去',warn:'先確認這間有參加活動、小卡還有沒有'}
   ]}],
  d4:[{t:'合井・西橋洞（由南往東）',w:'吃完 O 貝果屋直接出發',stops:[
    {n:'Coyseio 合井旗艦',q:'코이세이오 합정',hot:1,tip:'女裝· 雜貨里路 30'},
@@ -643,7 +648,8 @@ const R={
    {n:'Goods Moment',q:'굿즈모먼트',tip:'漫畫、網漫周邊，常有快閃',warn:'週一休，12:00 開',walk:'5 分'},
    {n:'Soka Mono',q:'소카모노',tip:'貓咪插畫小店',warn:'只開週三到週日 13:00–18:00',walk:'4 分'},
    {n:'Poset（延禧）',q:'Poset 연희동',tip:'書店',walk:'8 分'},
-   {n:'Big 睡眠（延禧洞 341-1）',q:'연희동 341-1',tip:'雜貨，逛完在這裡叫計程車',walk:'3 分'}
+   {n:'Big 睡眠（延禧洞 341-1）',q:'연희동 341-1',tip:'雜貨，逛完在這裡叫計程車',walk:'3 分'},
+   {n:'Ediya Coffee 延南',q:'이디야커피 연남',ed:1,tip:'拿小卡｜延南洞、弘大站 3 號出口附近',warn:'先確認這間有參加活動、小卡還有沒有'}
   ]}],
  d5:[{t:'明洞（由北往南走到明洞站）',w:'由北往南走到明洞站',stops:[
    {n:'Olive Young 明洞 Town',q:'올리브영 명동타운',hot:1,tip:'全球旗艦，可當場退稅'},
@@ -651,12 +657,14 @@ const R={
    {n:'Juuneedu 明洞',q:'쥬니쥬 명동점',hot:1,tip:'人氣睡衣',walk:'1 分'},
    {n:'Mimi Line 明洞',q:'미미라인 명동점',tip:'2–4 樓飾品、服飾、保養品',walk:'4 分'},
    {n:'Daiso 明洞站店',q:'다이소 명동역점',hot:1,tip:'12 層樓，明洞站 2 號出口旁',walk:'2 分'},
-   {n:'Ready Young 藥局 明洞旗艦',q:'명동 플래그쉽 레디영약국',hot:1,tip:'你存的影片就是在這家拍的；明洞站 8 號出口',warn:'10:00–00:30',walk:'約 3 分'}
+   {n:'Ready Young 藥局 明洞旗艦',q:'명동 플래그쉽 레디영약국',hot:1,tip:'你存的影片就是在這家拍的；明洞站 8 號出口',warn:'10:00–00:30',walk:'約 3 分'},
+   {n:'Ediya Coffee 明洞',q:'이디야커피 명동',ed:1,tip:'拿小卡｜明洞站附近，點地圖挑最近的',warn:'先確認這間有參加活動、小卡還有沒有'}
   ],extra:''},
   {t:'雲西站商圈',w:'飯店走路就到',stops:[
    {n:'樂天超市 永宗島店',q:'롯데마트 영종도점',hot:1,tip:'零食伴手禮最後補貨'},
    {n:'Olive Young 雲西',q:'올리브영 운서',tip:'保養品補貨',walk:'約 3 分'},
-   {n:'Daiso 雲西',q:'다이소 운서역점',tip:'生活小物',walk:'約 3 分'}
+   {n:'Daiso 雲西',q:'다이소 운서역점',tip:'生活小物',walk:'約 3 分'},
+   {n:'Ediya Coffee 雲西',q:'이디야커피 운서',ed:1,tip:'拿小卡｜雲西站附近',warn:'先確認這間有參加活動、小卡還有沒有'}
   ],extra:''}]
 };
 
@@ -808,7 +816,7 @@ $('#dayStrip').addEventListener('click',e=>{const b=e.target.closest('[data-day]
 
 let openChip=null,foodCat='全部';
 function stopLI(dayId,ri,s,n){const key=`d${dayId}r${ri}:${s.n}`;const done=!!S.shops[key];
- return `<li class="stop${s.hot?' hot':''}${done?' done':''}"><div class="num">${n}</div><div class="body"><div class="sn">${esc(s.n)}${s.hot?'<span class="hotb">熱門</span>':''}${s.opt?'<span class="optb">順路可加</span>':''}</div>${s.tip?`<div class="tip">${esc(s.tip)}</div>`:''}${s.warn?`<div class="warn">${esc(s.warn)}</div>`:''}${s.walk&&S.rview!=='list'?`<div class="tip">從上一站步行${esc(s.walk)}</div>`:''}</div>
+ return `<li class="stop${s.hot?' hot':''}${done?' done':''}"><div class="num">${n}</div><div class="body"><div class="sn">${esc(s.n)}${s.hot?'<span class="hotb">熱門</span>':''}${s.opt?'<span class="optb">順路可加</span>':''}${s.ed?'<span class="edb">☕ 小卡</span>':''}</div>${s.tip?`<div class="tip">${esc(s.tip)}</div>`:''}${s.warn?`<div class="warn">${esc(s.warn)}</div>`:''}${s.walk&&S.rview!=='list'?`<div class="tip">從上一站步行${esc(s.walk)}</div>`:''}</div>
    <div class="act"><a class="mini" href="${nUrl(s.nv||s.q)}" target="_blank" rel="noopener" aria-label="導航到 ${esc(s.n)}">${pin}</a><input type="checkbox" data-shop="${esc(key)}" ${done?'checked':''} aria-label="逛過了 ${esc(s.n)}"></div></li>`}
 function routeHTML(dayId,rt,ri){
  let h=`<div class="route"><div class="rh"><div style="min-width:0"><div class="rw">${esc(rt.w)}</div></div><div class="filter rvt" role="group" aria-label="顯示方式"><button data-rv="map" aria-pressed="${S.rview!=='list'}">路線</button><button data-rv="list" aria-pressed="${S.rview==='list'}">條列</button></div></div>`;
@@ -819,7 +827,7 @@ function routeHTML(dayId,rt,ri){
    if(s.sep)return `<li><span class="chip sep">${esc(s.n)}</span></li>`;
    n++;const key=`d${dayId}r${ri}:${s.n}`;const done=!!S.shops[key];const open=openChip===key;
    if(open)det=stopLI(dayId,ri,s,n);
-   return `<li><button class="chip${s.hot?' hot':''}${s.opt?' opt':''}${done?' done':''}" data-chip="${esc(key)}" aria-expanded="${open}"><b>${n}</b>${esc(s.n.replace(/（.*?）/g,''))}</button></li>`}).join('')+`</ol>`;
+   return `<li><button class="chip${s.hot?' hot':''}${s.opt?' opt':''}${done?' done':''}" data-chip="${esc(key)}" aria-expanded="${open}"><b>${n}</b>${s.ed?'☕ ':''}${esc(s.n.replace(/（.*?）/g,''))}</button></li>`}).join('')+`</ol>`;
   h+=det?`<ol class="stops cdet">${det}</ol>`:'';
  }else{
   h+=`<ol class="stops">`;
