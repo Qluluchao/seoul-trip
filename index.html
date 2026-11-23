@@ -461,7 +461,7 @@ const P={
  bblossom:{g:'Beauty Blossom Clinic',nv:'뷰티블라썸의원'},
  inspire:{g:'INSPIRE Entertainment Resort',nv:'인스파이어 엔터테인먼트 리조트'},
  jotang:{g:'Incheon Jotang',nv:'인천조탕'},
- cargo:{g:'Hongik Univ. Station Exit 7',nv:'홍대역물류'}
+ cargo:{g:'227 Dasan-ro Jung-gu Seoul',nv:'서울 중구 다산로 227'}
 };
 
 /* food: m = from your Naver list, ig = popular pick added */
@@ -742,24 +742,25 @@ const D=[
   {t:'20:30',k:'move',ti:'計程車回飯店',d:'約 20–25 分 · 約 ₩15,000',p:'anook'},
   {t:'21:15',k:'food',ti:'宵夜',slot:'d4late',d:''}
  ]},
-{id:5,title:'變美後的道別 ✨',date:'12/6',wd:'日',area:'寄行李・弘大醫美 → 雲西',living:2100,route:'d5',key:'d5c',
+{id:5,title:'變美後的道別 ✨',date:'12/6',wd:'日',area:'弘大醫美・東大門寄行李 → 雲西',living:2100,route:'d5',key:'d5d',
  slots:[{k:'d5bf',l:'早餐'},{k:'d5Blun',l:'午餐'},{k:'d5Bdin',l:'晚餐'},{k:'d5late',l:'宵夜'}],
  food:[['早餐',['f39','f7']],['午餐',['g1','f3','f1','g2','f39']],['晚餐',['p1','p2','p3','p4','p5']],['宵夜',['n1','n2','n3','n4']]],
  tl:[
-  {t:'08:30',k:'stay',ti:'收行李、Check-out',d:'登機箱寄放櫃台',p:'anook'},
-  {t:'08:45',k:'stay',ti:'弘大站物流寄行李',d:'弘大站 7 號出口 · 空運 ₩7,700/kg（未稅）· IG @hds.logistics',p:'cargo'},
+  {t:'08:30',k:'stay',ti:'收行李、Check-out',d:'大行李寄放櫃台',p:'anook'},
   {t:'09:15',k:'food',ti:'早餐',slot:'d5bf',d:''},
   {t:'10:15',k:'move',ti:'走到 Beauty Blossom',d:'양화로 66 · 6 樓櫃台 · 弘大站走路約 10 分',p:'bblossom'},
   {t:'10:30',k:'sight',ti:'Beauty Blossom 醫美',d:'已預約 10:30',p:'bblossom'},
   {t:'13:00',k:'food',ti:'午餐',slot:'d5Blun',d:''},
-  {t:'14:15',k:'move',ti:'拿行李 → 雲西站',d:'機場快線普通列車 · 約 55 分 · 約 ₩4,500',p:'unseo'},
-  {t:'15:15',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'},
-  {t:'16:00',k:'shop',ti:'雲西站商圈逛街',d:'',jump:'route',r:1},
-  {t:'17:30',k:'move',ti:'計程車 → INSPIRE',d:'約 10 分',p:'inspire'},
-  {t:'17:45',k:'food',ti:'晚餐',slot:'d5Bdin',d:''},
-  {t:'19:00',k:'sight',ti:'Aurora 燈光秀＋聖誕裝飾',d:'整點播放 · 免費',p:'inspire'},
-  {t:'20:00',k:'move',ti:'計程車回飯店',d:'約 10 分',p:'airrelax'},
-  {t:'21:30',k:'food',ti:'宵夜',slot:'d5late',d:''}
+  {t:'14:00',k:'move',ti:'回飯店拿行李 → 新堂',d:'2 號線直達 · 約 35 分；行李多可搭計程車約 40 分 · 約 ₩20,000',p:'cargo'},
+  {t:'14:45',k:'stay',ti:'承譽國際物流寄行李',d:'茶山路 227，7 樓 702 號 · 週日 14:00 開',p:'cargo'},
+  {t:'15:30',k:'move',ti:'新堂 → 首爾站 → 雲西站',d:'2 號線 → 東大門歷史文化公園轉 4 號線 → 首爾站轉機場快線普通列車 · 約 1 小時 15 分',p:'unseo'},
+  {t:'16:45',k:'stay',ti:'Hotel Air Relax Check-in',d:'雲西站走路 5–10 分',p:'airrelax'},
+  {t:'17:15',k:'shop',ti:'雲西站商圈逛街',d:'',jump:'route',r:1},
+  {t:'18:15',k:'move',ti:'計程車 → INSPIRE',d:'約 10 分',p:'inspire'},
+  {t:'18:30',k:'food',ti:'晚餐',slot:'d5Bdin',d:''},
+  {t:'20:00',k:'sight',ti:'Aurora 燈光秀＋聖誕裝飾',d:'整點播放 · 免費',p:'inspire'},
+  {t:'20:30',k:'move',ti:'計程車回飯店',d:'約 10 分',p:'airrelax'},
+  {t:'22:00',k:'food',ti:'宵夜',slot:'d5late',d:''}
  ]},
 {id:6,title:'滿載而歸之日 ✈️',date:'12/7',wd:'一',area:'回家',living:500,slots:[],food:[],
  tl:[
@@ -928,7 +929,7 @@ document.addEventListener('click',e=>{const c=e.target.closest('[data-copy]');if
 
 const CHK=[
  ['證件與預訂',['護照（效期 6 個月以上）','機票訂單截圖（ZE882 / ZE881）','兩間飯店的訂房截圖','旅平險＋不便險','信用卡（建議帶兩張）','少量韓元現金（T-money 儲值只收現金）']],
- ['出發前要辦',['確認不用申請 K-ETA（台灣人 2026/12/31 前免申請）','填好入境卡（飛機上填，或事先填電子版）','買 eSIM 或網卡','醫美診所確定、確認週日有開','預約要訂位的餐廳','寄信給 Air Relax 問清晨接駁／計程車','IG 私訊弘大站物流，確認 12/6（日）幾點開','下載 Naver Map、Kakao T、Papago']],
+ ['出發前要辦',['確認不用申請 K-ETA（台灣人 2026/12/31 前免申請）','填好入境卡（飛機上填，或事先填電子版）','買 eSIM 或網卡','醫美診所確定、確認週日有開','預約要訂位的餐廳','寄信給 Air Relax 問清晨接駁／計程車','LINE 問承譽國際物流：12/6（日）14:45 左右寄，空運／海運價格','下載 Naver Map、Kakao T、Papago']],
  ['衣物（白天約 0–5°C，晚上零下）',['發熱衣褲','羽絨外套','圍巾、手套、毛帽','好走的鞋','汗蒸幕不用帶衣服（館內提供）']],
  ['電器',['轉接頭（韓國是 220V 雙圓孔）','充電器、傳輸線','行動電源（放隨身行李）','確認離子夾、吹風機支援 220V']],
  ['保養與藥品',['乳液、護唇膏（首爾冬天很乾）','醫美後用：防曬、帽子、口罩','常備藥（感冒、腸胃、止痛）']],
@@ -958,7 +959,8 @@ function rerender(){if(curTab==='money')keepScroll(renderMoney);else if(curTab==
 
 
 /* ---------- pack: editable checklist kept on this phone ---------- */
-if(!S.shipv2){S.shipv2=1;(S.prep||[]).forEach(g=>g.items.forEach(it=>{if(it.t.includes('韓好運'))it.t='IG 私訊弘大站物流，確認 12/6（日）幾點開'}));
+if(!S.shipv3){S.shipv3=1;(S.prep||[]).forEach(g=>g.items.forEach(it=>{if(it.t.includes('弘大站物流')||it.t.includes('韓好運'))it.t='LINE 問承譽國際物流：12/6（日）14:45 左右寄，空運／海運價格'}));save()}
+if(!S.shipv2){S.shipv2=1;(S.prep||[]).forEach(g=>g.items.forEach(it=>{if(it.t.includes('韓好運'))it.t='LINE 問承譽國際物流：12/6（日）14:45 左右寄，空運／海運價格'}));
  S.wish=S.wish||[];if(!S.wish.some(w=>/narka/i.test(w.t)))S.wish.push({id:'wnarka',t:'narka 瀏海控油梳（Fresh Sebum Hair Mascara）',store:'Olive Young（容易缺貨，看到就買）',day:0,done:false});save()}
 if(!S.oy1){S.oy1=1;S.wish=S.wish||[];
  const OY=[
@@ -1031,16 +1033,16 @@ function renderPack(){
  });
  h+=`<form class="inl" data-gadd="1" style="margin-top:12px"><input id="addGroup" placeholder="新增分類，例如：伴手禮"><button class="sbtn" type="submit">新增分類</button></form>`;
  h+=`<h3 id="ship">寄東西回台灣 <span class="k">託運不夠時</span></h3>
- <div class="note warn">12/6 是星期日，郵局不營業。下面兩間集運行比較適合你們的行程。資料是網路上查到的，出發前請加 LINE 再確認一次。</div>
- <div class="card"><h4>弘大站物流 홍대역물류（推薦）</h4><div class="small">弘大站 7 號出口附近，走路就到，可以講中文</div>
+ <div class="note warn">12/6 是星期日，郵局不營業。12/6 做完醫美後去新堂的承譽寄；弘大站物流當備用。資料是網路上查到的，出發前請加 LINE 再確認一次。</div>
+ <div class="card"><h4>承譽國際物流（12/6 要寄的這間）</h4><div class="small">新堂附近，週日下午有開；海運比較便宜但比較慢，空運價格到場問</div>
+  <dl class="kv"><dt>位置</dt><dd>首爾中區茶山路 227，7 樓 702 號</dd><dt>營業</dt><dd>週日到週四 14:00–22:00（週五、六休息）</dd><dt>運費</dt><dd>海快 ₩5,000/kg（約 NT$130），最少 10 kg</dd></dl>
+  <div class="btns">${navBtns('다산로 227 서울 중구','서울 중구 다산로 227')}</div></div>
+ <div class="card"><h4>弘大站物流 홍대역물류（備用）</h4><div class="small">弘大站 7 號出口附近，走路就到，可以講中文</div>
   <dl class="kv"><dt>位置</dt><dd>弘大入口站 7 號出口附近</dd><dt>營業</dt><dd>週日有沒有開、幾點開，先 IG 私訊 @hds.logistics 確認（回覆偏慢，可以早點問）</dd>
   <dt>運費</dt><dd>空運 ₩7,700/kg（未稅），不滿公斤數可能比較貴；稅到台灣另付</dd>
   <dt>實例</dt><dd>10.96 kg 約 ₩8 萬多＋稅 NT$440，全部不到 NT$2,500；週四中午寄、週六下午就到台灣</dd>
   <dt>速度</dt><dd>現場打包加填資料不到 10 分鐘</dd><dt>其他</dt><dd>也有寄貨專車接駁、行李寄存</dd></dl>
   <div class="btns">${navBtns('Hongik Univ. Station Exit 7','홍대역물류')}</div></div>
- <div class="card"><h4>承譽國際物流</h4><div class="small">新堂附近，海運比較便宜但比較慢</div>
-  <dl class="kv"><dt>位置</dt><dd>首爾中區茶山路 227，7 樓 702 號</dd><dt>營業</dt><dd>週日到週四 14:00–22:00（週五、六休息）</dd><dt>運費</dt><dd>海快 ₩5,000/kg（約 NT$130），最少 10 kg</dd></dl>
-  <div class="btns">${navBtns('다산로 227 서울 중구','서울 중구 다산로 227')}</div></div>
  <div class="card"><h4>韓國郵局 EMS</h4><div class="small">只有平日 09:00–18:00</div>
   <dl class="kv"><dt>運費</dt><dd>5 kg 約 ₩31,000 · 10 kg 約 ₩49,000</dd><dt>適合</dt><dd>如果想在 12/4（五）寄</dd></dl></div>
  <h3>實用資訊</h3><div class="card"><dl class="kv">
