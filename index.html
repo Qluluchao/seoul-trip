@@ -830,7 +830,7 @@ function wxHTML(d){const iso='2026-12-0'+(d.id+1);const f=WX&&WX.d&&WX.d[iso];
  if(f){const n=wxName(f.c);return `<div class="wx">${ic(n)}<b>${Math.round(f.hi)}° / ${Math.round(f.lo)}°</b><span>${n}${f.p!=null?` · 雨 ${f.p}%`:''}</span><small>預報</small></div>`}
  return `<div class="wx">${ic('多雲')}<b>${CLIM.hi}° / ${CLIM.lo}°</b><span>雨 ${CLIM.pop}%</span><small>往年平均</small></div>`}
 (function(){const now=Date.now(),st=new Date('2026-12-02T00:00:00+09:00').getTime(),en=new Date('2026-12-08T00:00:00+09:00').getTime();
- if(now>en||st-now>15*864e5)return;if(WX&&now-WX.t<3*3600e3)return;
+ if(now>en||st-now>15*864e5)return;if(WX&&now-WX.t<3600e3)return;
  fetch('https://api.open-meteo.com/v1/forecast?latitude=37.5665&longitude=126.978&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FSeoul&start_date=2026-12-02&end_date=2026-12-07')
  .then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.daily)return;const d={};j.daily.time.forEach((t,i)=>{if(j.daily.temperature_2m_max[i]!=null)d[t]={c:j.daily.weather_code[i],hi:j.daily.temperature_2m_max[i],lo:j.daily.temperature_2m_min[i],p:j.daily.precipitation_probability_max[i]}});
   WX={t:Date.now(),d};try{localStorage.setItem('seoul-wx',JSON.stringify(WX))}catch(e){}if(curTab==='plan')keepScroll(renderPlan)}).catch(()=>{})})();
