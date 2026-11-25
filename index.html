@@ -449,6 +449,8 @@ const P={
  anguk:{g:'Anguk Station',nv:'안국역'},
  jongno3:{g:'Jongno 3-ga Station',nv:'종로3가역'},
  sindang:{g:'Sindang Station',nv:'신당역'},
+ sinsoldon:{g:'Sinsoldon Seoul',nv:'신솔돈'},
+ sinseol:{g:'Sinseol-dong Station',nv:'신설동역'},
  sparex:{g:'SPAREX Good Morning City Dongdaemun',nv:'스파렉스 굿모닝시티'},
  yeonnam:{g:'Gyeongui Line Forest Park Yeonnam',nv:'경의선숲길 연남동'},
  hangang:{g:'Yeouido Hangang Park',nv:'여의도한강공원'},
@@ -708,9 +710,9 @@ const D=[
   {t:'19:45',k:'move',ti:'回弘大',d:'2 號線 · 約 40 分',p:'hongik'},
   {t:'20:45',k:'food',ti:'宵夜叫外送',slot:'d2late',d:''}
  ]},
-{id:3,title:'韓屋與蒸氣浴 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',key:'d3v3',
+{id:3,title:'韓屋與蒸氣浴 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',key:'d3v4',
  slots:[{k:'d3bf',l:'早餐'},{k:'d3lun',l:'午餐'},{k:'d3cafe',l:'咖啡廳'},{k:'d3din',l:'晚餐'},{k:'d3late',l:'宵夜'}],
- food:[['早餐',['f22','f24','f21']],['午餐',['f20','f17','f18','g13','f19','f15','f16']],['咖啡廳',['f26','f22','g14','g15','g16','g17','f24','f21','f23','f25']],['晚餐',['f27','f45','g18','k2','f29','f30','f31','f42','f43']],['宵夜',['g19','f28','k2']]],
+ food:[['早餐',['f22','f24','f21']],['午餐',['f20','f17','f18','g13','f19','f15','f16']],['咖啡廳',['f26','f22','g14','g15','g16','g17','f24','f21','f23','f25']],['晚餐',['f45','f27','g18','k2','f29','f30','f31','f42','f43']],['宵夜',['g19','f28','k2']]],
  tl:[
   {t:'08:45',k:'move',ti:'弘大入口 → 安國站',d:'2→3 號線 · 約 35 分',p:'anguk'},
   {t:'09:30',k:'food',ti:'早餐',slot:'d3bf',d:''},
@@ -721,9 +723,10 @@ const D=[
   {t:'16:15',k:'move',ti:'景福宮站 → 安國站',d:'3 號線 · 1 站，走到益善洞',p:'ikseon'},
   {t:'16:30',k:'shop',ti:'益善洞 → 西巡邏路',d:'',jump:'route',r:2},
   {t:'17:15',k:'cafe',ti:'西巡邏路咖啡廳',slot:'d3cafe',d:''},
-  {t:'18:15',k:'move',ti:'鍾路 3 街 → 新堂站',d:'5→2 號線 · 約 15 分',p:'sindang'},
-  {t:'18:45',k:'food',ti:'晚餐',slot:'d3din',d:''},
-  {t:'19:45',k:'sight',ti:'Spa Rex 東大門汗蒸幕',d:'東大門歷史文化公園站 14 號出口 · ₩14,000（20:00 後 ₩16,000）',p:'sparex'},
+  {t:'18:05',k:'move',ti:'鍾路 3 街 → 新設洞站',d:'1 號線直達 4 站 · 約 10 分，出站走到店約 5 分',p:'sinsoldon'},
+  {t:'18:30',k:'food',ti:'晚餐：신솔돈 烤肉（已預約 2 位）',slot:'d3din',d:'IG @sinsoldon_kr'},
+  {t:'19:45',k:'move',ti:'新設洞 → Spa Rex',d:'計程車約 10 分 · 約 ₩6,000；或 1 號線 2 站到東大門站再走 10 分',p:'sparex'},
+  {t:'20:00',k:'sight',ti:'Spa Rex 東大門汗蒸幕',d:'東大門歷史文化公園站 14 號出口 · 20:00 後 ₩16,000',p:'sparex'},
   {t:'21:30',k:'shop',ti:'東大門夜逛',d:'',jump:'route',r:3},
   {t:'23:00',k:'food',ti:'宵夜',slot:'d3late',d:''},
   {t:'00:00',k:'move',ti:'計程車回弘大',d:'約 25 分 · 約 ₩20,000',p:'anook'}
@@ -890,7 +893,7 @@ $('#dayBody').addEventListener('change',e=>{const tk=e.target.closest('[data-tk]
 const LEGS=[
  ['12/2（三）',[['rail','仁川機場 T1 → 弘大入口站','機場快線「普通列車」（直達車不停弘大）','約 66 分','₩4,950','icn','hongik'],['walk','弘大入口站 → 阿努克飯店','走路','約 8 分','—','hongik','anook']]],
  ['12/3（四）',[['rail','弘大入口 → 聖水','2 號線直達','約 40 分','₩1,550','hongik','seongsu'],['rail','聖水 → 弘大入口','2 號線直達','約 40 分','₩1,550','seongsu','hongik']]],
- ['12/4（五）',[['rail','弘大入口 → 景福宮','2 號線 → 乙支路 3 街轉 3 號線','約 35 分','₩1,550','hongik','gbgst'],['rail','鍾路 3 街 → 新堂','5 號線 → 東大門歷史文化公園轉 2 號線','約 15 分','₩1,550','jongno3','sindang'],['walk','新堂 → Spa Rex','走路，或 2 號線 1 站到東大門歷史文化公園站 14 號出口','約 15 分','—','sindang','sparex'],['taxi','東大門 → 弘大（深夜）','計程車，地鐵末班約 23:30','約 25 分','約 ₩20,000','sparex','anook']]],
+ ['12/4（五）',[['rail','弘大入口 → 景福宮','2 號線 → 乙支路 3 街轉 3 號線','約 35 分','₩1,550','hongik','gbgst'],['rail','鍾路 3 街 → 新設洞（신솔돈）','1 號線直達 4 站，出站走約 5 分','約 15 分','₩1,550','jongno3','sinsoldon'],['taxi','신솔돈 → Spa Rex','計程車；或 1 號線 2 站到東大門站再走 10 分','約 10 分','約 ₩6,000','sinsoldon','sparex'],['taxi','東大門 → 弘大（深夜）','計程車，地鐵末班約 23:30','約 25 分','約 ₩20,000','sparex','anook']]],
  ['12/5（六）',[['walk','飯店 → 合井（O 貝果屋）','走路','約 15 分','—','anook','ktg'],['walk','西橋洞 Object → 延南洞','走路（或計程車 5 分）','約 12–15 分','—','ktg','yeonnam'],['taxi','延禧洞 → 汝矣島漢江公園','計程車（兩人分攤）','約 20 分','約 ₩12,000','yeonnam','hangang'],['walk','漢江公園 → The Hyundai','走路','約 10 分','—','hangang','hyundai'],['taxi','The Hyundai → 阿努克飯店','計程車（兩人分攤）','約 20–25 分','約 ₩15,000','hyundai','anook']]],
  ['12/6（日）',[['rail','明洞 → 首爾站','4 號線 2 站','約 5 分','₩1,550','myeongdong','seoulst'],['rail','首爾站 → 弘大入口（拿行李）','機場快線普通列車','約 15 分','約 ₩1,550','seoulst','hongik'],['rail','弘大入口 → 雲西站','機場快線普通列車，帶著全部行李','約 55 分','約 ₩4,500','hongik','unseo'],['walk','雲西站 → Hotel Air Relax','走路','5–10 分','—','unseo','airrelax']]],
  ['12/7（一）',[['taxi','Hotel Air Relax → 仁川機場 T1','計程車，前一晚請櫃台預約 05:30','10–15 分','約 ₩15,000','airrelax','icn']]]
