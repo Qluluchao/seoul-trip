@@ -443,6 +443,8 @@ const P={
  airrelax:{g:'Hotel Air Relax Incheon',nv:'호텔 에어릴렉스'},
  seongsu:{g:'Seongsu Station',nv:'성수역'},
  forest:{g:'Seoul Forest',nv:'서울숲'},
+ starfield:{g:'Starfield Library COEX',nv:'별마당도서관'},
+ samseong:{g:'Samseong Station',nv:'삼성역'},
  gbgst:{g:'Gyeongbokgung Station',nv:'경복궁역'},
  gbg:{g:'Gyeongbokgung Palace',nv:'경복궁'},
  ikseon:{g:'Ikseon-dong Hanok Street',nv:'익선동 한옥거리'},
@@ -696,7 +698,7 @@ const D=[
   {t:'19:00',k:'shop',ti:'弘大夜逛',d:'',jump:'route',r:0},
   {t:'21:30',k:'food',ti:'宵夜',slot:'d1late',d:''}
  ]},
-{id:2,title:'聖水午後漫遊 🛍️',date:'12/3',wd:'四',area:'聖水',living:1450,route:'d2',
+{id:2,title:'聖水午後漫遊 🛍️',date:'12/3',wd:'四',area:'聖水・COEX',living:1450,route:'d2',key:'d2v2',
  slots:[{k:'d2br',l:'早午餐'},{k:'d2cafe',l:'咖啡廳'},{k:'d2din',l:'晚餐'},{k:'d2late',l:'宵夜外送'}],
  food:[['早午餐',['g7','f8','g8','f9','g12','f10']],['咖啡廳',['g10','f11','g11','f12']],['晚餐',['f13','f14','g9']],['宵夜',['h1','h2','h3','k3','k4']]],
  tl:[
@@ -706,8 +708,9 @@ const D=[
   {t:'14:00',k:'cafe',ti:'咖啡廳',slot:'d2cafe',d:''},
   {t:'15:00',k:'shop',ti:'聖水下半場（往西）',d:'',jump:'route',r:1},
   {t:'17:30',k:'food',ti:'晚餐',slot:'d2din',d:''},
-  {t:'18:45',k:'sight',ti:'首爾林散步（可跳過）',d:'',p:'forest'},
-  {t:'19:45',k:'move',ti:'回弘大',d:'2 號線 · 約 40 分',p:'hongik'},
+  {t:'18:45',k:'move',ti:'聖水 → 三成站',d:'2 號線約 20 分；或計程車約 20 分 · 約 ₩12,000',p:'samseong'},
+  {t:'19:15',k:'sight',ti:'星空圖書館聖誕樹 🎄',d:'COEX Mall B1，三成站 5 號出口｜今年主題「鬼怪聖誕老人」，免費；搭手扶梯上 2 樓拍全景',p:'starfield'},
+  {t:'20:00',k:'move',ti:'三成 → 弘大',d:'2 號線直達 · 約 45 分',p:'hongik'},
   {t:'20:45',k:'food',ti:'宵夜叫外送',slot:'d2late',d:''}
  ]},
 {id:3,title:'韓屋與蒸氣浴 ♨️',date:'12/4',wd:'五',area:'安國 → 東大門',living:2450,route:'d3',key:'d3v4',
@@ -893,7 +896,7 @@ $('#dayBody').addEventListener('change',e=>{const tk=e.target.closest('[data-tk]
 
 const LEGS=[
  ['12/2（三）',[['rail','仁川機場 T1 → 弘大入口站','機場快線「普通列車」（直達車不停弘大）','約 66 分','₩4,950','icn','hongik'],['walk','弘大入口站 → 阿努克飯店','走路','約 8 分','—','hongik','anook']]],
- ['12/3（四）',[['rail','弘大入口 → 聖水','2 號線直達','約 40 分','₩1,550','hongik','seongsu'],['rail','聖水 → 弘大入口','2 號線直達','約 40 分','₩1,550','seongsu','hongik']]],
+ ['12/3（四）',[['rail','弘大入口 → 聖水','2 號線直達','約 40 分','₩1,550','hongik','seongsu'],['rail','聖水 → 三成（星空圖書館）','2 號線直達','約 20 分','₩1,550','seongsu','samseong'],['rail','三成 → 弘大入口','2 號線直達','約 45 分','₩1,550','samseong','hongik']]],
  ['12/4（五）',[['rail','弘大入口 → 景福宮','2 號線 → 乙支路 3 街轉 3 號線','約 35 分','₩1,550','hongik','gbgst'],['rail','鍾路 3 街 → 新設洞（신솔돈）','1 號線直達 4 站，出站走約 5 分','約 15 分','₩1,550','jongno3','sinsoldon'],['taxi','신솔돈 → Spa Rex','計程車；或 1 號線 2 站到東大門站再走 10 分','約 10 分','約 ₩6,000','sinsoldon','sparex'],['taxi','東大門 → 弘大（深夜）','計程車，地鐵末班約 23:30','約 25 分','約 ₩20,000','sparex','anook']]],
  ['12/5（六）',[['walk','飯店 → 合井（O 貝果屋）','走路','約 15 分','—','anook','ktg'],['walk','西橋洞 Object → 延南洞','走路（或計程車 5 分）','約 12–15 分','—','ktg','yeonnam'],['taxi','延禧洞 → 汝矣島漢江公園','計程車（兩人分攤）','約 20 分','約 ₩12,000','yeonnam','hangang'],['walk','漢江公園 → The Hyundai','走路','約 10 分','—','hangang','hyundai'],['taxi','The Hyundai → 阿努克飯店','計程車（兩人分攤）','約 20–25 分','約 ₩15,000','hyundai','anook']]],
  ['12/6（日）',[['rail','明洞 → 首爾站','4 號線 2 站','約 5 分','₩1,550','myeongdong','seoulst'],['rail','首爾站 → 弘大入口（拿行李）','機場快線普通列車','約 15 分','約 ₩1,550','seoulst','hongik'],['rail','弘大入口 → 雲西站','機場快線普通列車，帶著全部行李','約 55 分','約 ₩4,500','hongik','unseo'],['walk','雲西站 → Hotel Air Relax','走路','5–10 分','—','unseo','airrelax']]],
