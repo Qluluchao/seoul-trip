@@ -432,7 +432,7 @@ S.bud=S.bud||{rate:38.5,total:0};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pin='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
-const nUrl=q=>'https://map.naver.com/p/search/'+encodeURIComponent(q);
+const nUrl=q=>/[\uac00-\ud7a3]/.test(q)?'https://map.naver.com/p/search/'+encodeURIComponent(q):'https://www.google.com/maps/search/'+encodeURIComponent(q+' Seoul');
 function navBtns(g,n){return `<a class="mapi" href="${nUrl(n||g)}" target="_blank" rel="noopener" aria-label="用 Naver Map 打開" title="Naver Map">${pin}</a>`}
 function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,1600)}
 
@@ -482,7 +482,7 @@ const F={
  f8:{n:'春天 Uijeongwon 聖水',c:'西餐',g:'Uijeongwon Seongsu',b:1,a:'聖水',m:1},
  f9:{n:'Standard Bread 聖水',c:'麵包咖啡',g:'스탠다드브레드 성수',a:'聖水',m:1},
  f10:{n:'Meita 王雞蛋撻',c:'麵包',g:'메이타 성수',w:'常大排長龍',a:'聖水',m:1},
- f11:{n:'Rafre Fruit 聖水',c:'水果蛋糕咖啡',g:'Rafre Fruit Seongsu',b:1,a:'聖水',m:1},
+ f11:{n:'Rafre Fruit 聖水',c:'水果蛋糕咖啡',g:'라프레플루트 성수',b:1,a:'聖水',m:1},
  f12:{n:'Maman Gelato 聖水',c:'義式冰淇淋',g:'마망젤라또 성수',a:'聖水',m:1},
  f13:{n:'聞名的聖水馬鈴薯排骨湯',c:'馬鈴薯排骨湯 · 24 小時',g:'소문난성수감자탕',w:'就在逛街路線中段，翻桌快',a:'聖水',m:1},
  f14:{n:'Jojo 刀削麵 聖水',c:'蛤蜊刀削麵、海鮮煎餅',g:'조조칼국수 성수',w:'10:00–21:30，線上候位',a:'聖水',m:1},
@@ -499,11 +499,11 @@ const F={
  f25:{n:'咖啡廳 Sangguk',c:'咖啡',g:'상국 원서동',a:'北村',m:1},
  f26:{n:'西巡邏路韓屋咖啡',c:'韓屋咖啡',g:'서순라길 한옥카페',a:'西巡邏路',m:1},
  f27:{n:'Meogeobokka 辣燉排骨',c:'辣燉排骨',g:'Meogeobokka Sindang',b:1,w:'你 D3 要吃的辣燉排骨',a:'新堂',m:1},
- f28:{n:'Ujeong 炒年糕',c:'炒年糕 · 開到很晚',g:'Ujeong Tteokbokki Sindang',a:'新堂',m:1},
+ f28:{n:'Ujeong 炒年糕',c:'炒年糕 · 開到很晚',g:'우정 신당동 퇴계로76길 55',a:'新堂',m:1},
  f29:{n:'新堂韓牛肥腸',c:'烤牛腸 · 開到很晚',g:'신당 한우곱창',a:'新堂',m:1},
  f30:{n:'Zip Ppul 雞爪',c:'辣雞爪',g:'짚뿔닭발',b:1,a:'東大門',m:1},
- f31:{n:'Sinsol 豬',c:'烤豬肉',g:'Sinsol Sinseol-dong pork',a:'新設洞',m:1},
- f32:{n:'Ottel Deu Kkutteu',c:'西餐',g:'Ottel Deu Kkutteu Yeonnam',b:1,a:'延南',m:1},
+ f31:{n:'Sinsol 豬',c:'烤豬肉',g:'신솔돈',a:'新設洞',m:1},
+ f32:{n:'Ottel Deu Kkutteu',c:'西餐',g:'오뗄 드 꾸뜨 홍대',b:1,a:'延南',m:1},
  f33:{n:'日記 延南',c:'咖啡點心',g:'일기 연남',a:'延南',m:1},
  f34:{n:'Ocheu 咖啡 延南',c:'咖啡',g:'Ocheu Yeonnam',a:'延南',m:1},
  f35:{n:'林間路肉鋪',c:'烤肉',g:'Imgando Yeonnam',w:'營業時間查不到，去之前看 Naver 確認 21:00 還能點',a:'延南',m:1},
